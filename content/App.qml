@@ -29,15 +29,16 @@
 
 import QtQuick
 import QtQuick.Window
-import Media
+//import Media
 
 Window {
-    width: mainScreen.width
-    height: mainScreen.height
-
+    width: 700
+    height: 400
     visible: true
     title: "Media"
+    BaseCintroller{
 
+    }
 
 
 }

@@ -9,7 +9,6 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.14
-import QtQuick.Timeline 1.0
 
 Item {
     id: bc
@@ -90,9 +89,7 @@ Item {
         source: "image/controller/暂停_pause.svg"
         fillMode: Image.PreserveAspectFit
         Loader {
-            sourceComponent: clickAnimation2;
-
-
+            sourceComponent: clickAnimation2
         }
         MouseArea {
             id: media_pause_mouseArea
@@ -143,23 +140,6 @@ Item {
         horizontalAlignment: Text.AlignHCenter
     }
 
-    Timeline {
-
-        id: toClick
-        animations: [
-            TimelineAnimation {
-                id: toClickAnimation
-                loops: 1
-                duration: 200
-                running: true
-                to: 200
-                from: 0
-            }
-        ]
-        endFrame: 200
-        enabled: false
-        startFrame: 0
-    }
     Component {
         id: clickAnimation1
 
@@ -226,9 +206,5 @@ Item {
     }
 }
 
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:0.75}
-}
-##^##*/
+
 

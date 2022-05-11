@@ -8,6 +8,9 @@ qt6_add_qml_module(content
     QML_FILES
         App.qml
         Screen01.ui.qml
+        BaseCintroller.qml
+        BaseControllerForm.ui.qml
+
     RESOURCES
         fonts/fonts.txt
 )
