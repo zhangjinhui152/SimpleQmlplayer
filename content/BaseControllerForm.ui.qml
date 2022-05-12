@@ -14,6 +14,7 @@ Item {
     id: bc
     width: 700
     height: 100
+    property alias clickAnimation_media_pause: clickAnimation_media_pause
     property alias volumenotice_mouseArea: volumenotice_mouseArea
     property alias latsTime: latsTime
     property alias slider: slider
@@ -22,8 +23,7 @@ Item {
     property alias media_pause_mouseArea: media_pause_mouseArea
     property alias media_mouseArea: media_mouseArea
     property alias mediaList_mouseArea: mediaList_mouseArea
-
-    antialiasing: false
+    property alias clickAnimation_mediaList: clickAnimation_mediaList
 
     Image {
         id: mediaList
@@ -31,15 +31,31 @@ Item {
         y: 0
         width: 50
         height: 100
-
         source: "image/controller/展开菜单1_menu-unfold-one.svg"
         fillMode: Image.PreserveAspectFit
-        Loader {
-            sourceComponent: clickAnimation1
+        SequentialAnimation {
+            id: clickAnimation_mediaList
+            property var target_name: mediaList
+            property bool ifRotation: false
+            property int angle: 180
+            property string img_src: "image/controller/上一曲_go-start.svg"
+            running: false
+            NumberAnimation {
+                target: clickAnimation_mediaList.target_name
+                property: "rotation"
+                easing.bezierCurve: [0.77,0,0.175,1,1,1]
+                to: clickAnimation_mediaList.angle
+                duration: 500
+            }
+            PropertyAnimation {
+                target: clickAnimation_mediaList
+                property: "running"
+                to: false
+                duration: 5
+            }
         }
 
         MouseArea {
-            signal extenerClick
 
             id: mediaList_mouseArea
             x: mediaList.x
@@ -88,9 +104,42 @@ Item {
         height: 100
         source: "image/controller/暂停_pause.svg"
         fillMode: Image.PreserveAspectFit
-        Loader {
-            sourceComponent: clickAnimation2
+        SequentialAnimation {
+            id: clickAnimation_media_pause
+            property var target_name: media_pause
+            property string img_src: "image/controller/play.svg"
+            property bool isPause: false
+            running: false
+            NumberAnimation {
+                target: clickAnimation_media_pause.target_name
+                property: "scale"
+                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
+                to: 0
+                duration: 250
+            }
+            PropertyAnimation {
+                id: propertyAnimation
+                target: clickAnimation_media_pause.target_name
+                property: "source"
+                to: clickAnimation_media_pause.img_src
+                duration: 10
+            }
+
+            NumberAnimation {
+                target: clickAnimation_media_pause.target_name
+                property: "scale"
+                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
+                to: 1
+                duration: 250
+            }
+            PropertyAnimation {
+                target: clickAnimation_media_pause
+                property: "running"
+                to: false
+                duration: 5
+            }
         }
+
         MouseArea {
             id: media_pause_mouseArea
             anchors.fill: parent
@@ -140,71 +189,5 @@ Item {
         horizontalAlignment: Text.AlignHCenter
     }
 
-    Component {
-        id: clickAnimation1
 
-        SequentialAnimation {
-            id: clickAnimation_mediaList
-            property var target_name: mediaList
-            property string img_src: "image/controller/上一曲_go-start.svg"
-            running: true
-            NumberAnimation {
-                target: clickAnimation_mediaList.target_name
-                property: "scale"
-                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
-                to: 0
-                duration: 500
-            }
-            PropertyAnimation {
-                id: propertyAnimation
-                target: clickAnimation_mediaList.target_name
-                property: "source"
-                to: clickAnimation_mediaList.img_src
-                duration: 50
-            }
-
-            NumberAnimation {
-                target: clickAnimation_mediaList.target_name
-                property: "scale"
-                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
-                to: 1
-                duration: 500
-            }
-        }
-    }
-    Component {
-        id: clickAnimation2
-        SequentialAnimation {
-            id: clickAnimation_media_pause
-            property var target_name: media_pause
-            property string img_src: "image/controller/上一曲_go-start.svg"
-            property bool run: true
-            running: clickAnimation_media_pause.run
-            NumberAnimation {
-                target: clickAnimation_media_pause.target_name
-                property: "scale"
-                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
-                to: 0
-                duration: 500
-            }
-            PropertyAnimation {
-                id: propertyAnimation
-                target: clickAnimation_media_pause.target_name
-                property: "source"
-                to: clickAnimation_media_pause.img_src
-                duration: 50
-            }
-
-            NumberAnimation {
-                target: clickAnimation_media_pause.target_name
-                property: "scale"
-                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
-                to: 1
-                duration: 500
-            }
-        }
-    }
 }
-
-
-

@@ -13,4 +13,11 @@ qt6_add_qml_module(content
 
     RESOURCES
         fonts/fonts.txt
+
+)
+
+qt_add_resources(MediaImage
+    PREFIX "/content"
+    FILES
+        image/controller/player.svg
 )

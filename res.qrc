@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>player.svg</file>
+    </qresource>
+    <qresource prefix="/Main">
+        <file>player.svg</file>
+    </qresource>
+</RCC>
