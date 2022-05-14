@@ -43,7 +43,7 @@ Item {
             NumberAnimation {
                 target: clickAnimation_mediaList.target_name
                 property: "rotation"
-                easing.bezierCurve: [0.77,0,0.175,1,1,1]
+                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
                 to: clickAnimation_mediaList.angle
                 duration: 500
             }
@@ -102,13 +102,13 @@ Item {
         y: 0
         width: 50
         height: 100
-        source: "image/controller/暂停_pause.svg"
+        source: "image/controller/play.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
             id: clickAnimation_media_pause
             property var target_name: media_pause
             property string img_src: "image/controller/play.svg"
-            property bool isPause: false
+            property bool isPause: true
             running: false
             NumberAnimation {
                 target: clickAnimation_media_pause.target_name
@@ -188,6 +188,4 @@ Item {
         font.pixelSize: 14
         horizontalAlignment: Text.AlignHCenter
     }
-
-
 }

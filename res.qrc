@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>player.svg</file>
+        <file>a3.mp3</file>
     </qresource>
     <qresource prefix="/Main">
         <file>player.svg</file>

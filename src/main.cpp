@@ -29,14 +29,15 @@
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <thread>
 #include "app_environment.h"
 #include "import_qml_plugins.h"
+#include "src/qtplayer.h"
+
 
 int main(int argc, char *argv[])
 {
     set_qt_environment();
-
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
@@ -48,7 +49,12 @@ int main(int argc, char *argv[])
             QCoreApplication::exit(-1);
     },
     Qt::QueuedConnection);
+    qtPlayer player;
+//    player.openfile("");
 
+
+    qmlRegisterSingletonInstance<qtPlayer>("my_player", 1, 0, "Player",&player);
+    qmlRegisterType<qtPlayer>("com.mycompany.qmlcomponents", 1, 0, "Slider");
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
 
