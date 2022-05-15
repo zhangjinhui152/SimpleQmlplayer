@@ -11,6 +11,6 @@ message(STATUS "HOW IS ${VLC_L}" )
 
 
 # add_executable(a1 main.cpp ${VLC_CPP} ${VLC_H} player.h player.cpp )
-add_library(player SHARED ${VLC_CPP} ${VLC_H} player.h player.cpp)
+add_library(my_player SHARED ${VLC_CPP} ${VLC_H} player.h player.cpp)
 # set_target_properties(VLC_LIB PROPERTIES LINKER_LANGUAGE CXX)
-target_link_libraries(player  ${VLC_L})
+target_link_libraries(my_player  ${VLC_L})
