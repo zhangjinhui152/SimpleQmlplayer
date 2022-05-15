@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="/Media/">
+    <file alias="Constants.qml">/home/zjh/program/c++/Media/imports/Media/Constants.qml</file>
+    <file alias="DirectoryFontLoader.qml">/home/zjh/program/c++/Media/imports/Media/DirectoryFontLoader.qml</file>
+    <file alias="EventListModel.qml">/home/zjh/program/c++/Media/imports/Media/EventListModel.qml</file>
+    <file alias="EventListSimulator.qml">/home/zjh/program/c++/Media/imports/Media/EventListSimulator.qml</file>
+  </qresource>
+</RCC>
+

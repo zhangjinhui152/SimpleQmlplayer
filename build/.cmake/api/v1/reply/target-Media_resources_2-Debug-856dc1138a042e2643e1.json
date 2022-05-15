@@ -1,0 +1,284 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "imports/Media/CMakeFiles/Media_resources_2.dir/Media_resources_2_autogen/mocs_compilation.cpp.o"
+		},
+		{
+			"path" : "imports/Media/CMakeFiles/Media_resources_2.dir/.rcc/qrc_Media_raw_qml_0.cpp.o"
+		}
+	],
+	"backtrace" : 6,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"__qt_propagate_generated_resource",
+			"_qt_internal_process_resource",
+			"qt6_add_resources",
+			"qt6_target_qml_sources",
+			"qt6_add_qml_module",
+			"set_property",
+			"_qt_internal_copy_dependency_properties",
+			"__qt_internal_propagate_object_library",
+			"target_compile_definitions"
+		],
+		"files" : 
+		[
+			"/usr/lib64/cmake/Qt6Core/Qt6CoreMacros.cmake",
+			"/usr/lib64/cmake/Qt6Qml/Qt6QmlMacros.cmake",
+			"imports/Media/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 5,
+				"file" : 2,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"command" : 4,
+				"file" : 1,
+				"line" : 575,
+				"parent" : 1
+			},
+			{
+				"command" : 3,
+				"file" : 1,
+				"line" : 2026,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 340,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 2005,
+				"parent" : 4
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 1771,
+				"parent" : 5
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 1800,
+				"parent" : 5
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 1640,
+				"parent" : 7
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 2387,
+				"parent" : 8
+			},
+			{
+				"command" : 9,
+				"file" : 0,
+				"line" : 1772,
+				"parent" : 5
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 2387,
+				"parent" : 8
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 2387,
+				"parent" : 8
+			},
+			{
+				"command" : 6,
+				"file" : 0,
+				"line" : 2387,
+				"parent" : 8
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fPIC"
+				},
+				{
+					"fragment" : "-std=gnu++17"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 10,
+					"define" : "QT_CORE_LIB"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "QT_NETWORK_LIB"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "QT_QMLINTEGRATION_LIB"
+				},
+				{
+					"backtrace" : 11,
+					"define" : "QT_QML_LIB"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"path" : "/home/zjh/program/c++/Media/build/imports/Media"
+				},
+				{
+					"path" : "/home/zjh/program/c++/Media/imports/Media"
+				},
+				{
+					"backtrace" : 0,
+					"path" : "/home/zjh/program/c++/Media/build/imports/Media/Media_resources_2_autogen/include"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/home/zjh/program/c++/Media/build/imports/Media/Media_autogen/include"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/usr/include/qt6/QtQml/6.3.0"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/usr/include/qt6/QtQml/6.3.0/QtQml"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/usr/include/qt6/QtCore/6.3.0"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/usr/include/qt6/QtCore/6.3.0/QtCore"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/usr/include/qt6/QtCore"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/usr/include/qt6/QtQml"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/usr/include/qt6/QtQmlIntegration"
+				},
+				{
+					"backtrace" : 12,
+					"path" : "/usr/include/qt6/QtNetwork"
+				},
+				{
+					"backtrace" : 12,
+					"isSystem" : true,
+					"path" : "/usr/include/qt6"
+				},
+				{
+					"backtrace" : 12,
+					"isSystem" : true,
+					"path" : "/usr/lib/qt6/mkspecs/linux-g++"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					13
+				],
+				"standard" : "17"
+			},
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 0,
+			"id" : "Media_resources_2_autogen::@54a9e161d41b682a24f8"
+		}
+	],
+	"id" : "Media_resources_2::@54a9e161d41b682a24f8",
+	"name" : "Media_resources_2",
+	"paths" : 
+	{
+		"build" : "imports/Media",
+		"source" : "imports/Media"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0,
+				1
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				2
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 0,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/imports/Media/Media_resources_2_autogen/mocs_compilation.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 6,
+			"compileGroupIndex" : 0,
+			"isGenerated" : true,
+			"path" : "build/imports/Media/.rcc/qrc_Media_raw_qml_0.cpp",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "build/imports/Media/.rcc/qrc_Media_raw_qml_0.cpp.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "OBJECT_LIBRARY"
+}

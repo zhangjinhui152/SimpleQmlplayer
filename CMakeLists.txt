@@ -34,6 +34,7 @@ qt_add_resources(MediaApp "configuration"
         ${qml_res}
 )
 add_subdirectory(player)
+
 target_link_libraries(MediaApp PUBLIC my_player)
 target_link_libraries(MediaApp PRIVATE
     Qt${QT_VERSION_MAJOR}::Core

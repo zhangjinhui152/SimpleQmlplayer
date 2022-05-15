@@ -1,0 +1,1 @@
+/usr/bin/clang++ -fPIC -g -shared -Wl,-soname,libplayer.so -o libplayer.so CMakeFiles/player.dir/player_autogen/mocs_compilation.cpp.o CMakeFiles/player.dir/vlcpp/include/a.cpp.o CMakeFiles/player.dir/player.cpp.o  -Wl,-rpath,/home/zjh/program/c++/Media/player/vlcpp/lib ../../player/vlcpp/lib/libvlc.so ../../player/vlcpp/lib/libvlccore.so 
