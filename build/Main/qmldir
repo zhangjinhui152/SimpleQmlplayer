@@ -1,4 +1,0 @@
-module Main
-typeinfo MediaApp.qmltypes
-prefer :/Main/
-

@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/Main">
-    <file alias="qmldir">/home/zjh/program/c++/Media/build/Main/qmldir</file>
-  </qresource>
-</RCC>
-

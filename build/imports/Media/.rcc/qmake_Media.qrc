@@ -1,6 +1,0 @@
-<RCC>
-  <qresource prefix="/Media">
-    <file alias="qmldir">/home/zjh/program/c++/Media/build/imports/Media/qmldir</file>
-  </qresource>
-</RCC>
-

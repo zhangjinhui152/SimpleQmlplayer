@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc libMediaplugin.a CMakeFiles/Mediaplugin.dir/Mediaplugin_autogen/mocs_compilation.cpp.o CMakeFiles/Mediaplugin.dir/Mediaplugin_MediaPlugin.cpp.o
-/usr/bin/llvm-ranlib libMediaplugin.a

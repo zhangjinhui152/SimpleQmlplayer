@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc libMedia.a CMakeFiles/Media.dir/Media_autogen/mocs_compilation.cpp.o CMakeFiles/Media.dir/media_qmltyperegistrations.cpp.o CMakeFiles/Media.dir/.rcc/qmlcache/Media_Constants_qml.cpp.o CMakeFiles/Media.dir/.rcc/qmlcache/Media_DirectoryFontLoader_qml.cpp.o CMakeFiles/Media.dir/.rcc/qmlcache/Media_EventListModel_qml.cpp.o CMakeFiles/Media.dir/.rcc/qmlcache/Media_EventListSimulator_qml.cpp.o
-/usr/bin/llvm-ranlib libMedia.a
