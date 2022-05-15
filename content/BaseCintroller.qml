@@ -32,12 +32,12 @@ Item {
                 if(clickAnimation_media_pause.isPause){
                     clickAnimation_media_pause.img_src="image/controller/暂停_pause.svg"
                     clickAnimation_media_pause.isPause = false;
-                    Player.testfun()
+                    Player.play()
                 }
                 else{
                     clickAnimation_media_pause.img_src="image/controller/play.svg"
                     clickAnimation_media_pause.isPause = true;
-
+                    Player.pause()
 
                 }
                 clickAnimation_media_pause.running = true
