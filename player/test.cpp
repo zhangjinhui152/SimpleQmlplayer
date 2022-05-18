@@ -20,7 +20,7 @@ extern "C"
 void handleEvents(const libvlc_event_t *event, void *userData)
 {
     // Player *player = static_cast(userData);
-// Player *player = static_cast(userData);
+
     switch (event->type)
     {
     // 播放状态改变

@@ -11,17 +11,24 @@ import QtQuick.Controls 2.15
 import QtQuick.Window 2.14
 
 Item {
+
     id: bc
-    width: 700
+    width: 900
     height: 100
+    property string latsTimeText: "latsTime.text"
+    property alias volume_silde: volume_silde
+    property alias volumenotice: volumenotice
+    property alias media_mouseArea_Prev: media_mouseArea_Prev
+
+    property alias mediaNext_mouseArea: mediaNext_mouseArea
+    property alias clickAnimation_next: clickAnimation_next
+    property alias clickAnimation_Prev: clickAnimation_Prev
     property alias clickAnimation_media_pause: clickAnimation_media_pause
     property alias volumenotice_mouseArea: volumenotice_mouseArea
-    property alias latsTime: latsTime
     property alias slider: slider
     property alias currTime: currTime
-    property alias mediaPlay_mouseArea: mediaPlay_mouseArea
+    //    property alias mediaPlay_mouseArea: mediaPlay_mouseArea
     property alias media_pause_mouseArea: media_pause_mouseArea
-    property alias media_mouseArea: media_mouseArea
     property alias mediaList_mouseArea: mediaList_mouseArea
     property alias clickAnimation_mediaList: clickAnimation_mediaList
 
@@ -74,14 +81,38 @@ Item {
 
         source: "image/controller/上一曲_go-start.svg"
         fillMode: Image.PreserveAspectFit
-
+        SequentialAnimation {
+            id: clickAnimation_Prev
+            property var target_name: mediaPrev
+            running: false
+            NumberAnimation {
+                target: clickAnimation_Prev.target_name
+                property: "scale"
+                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
+                to: 0
+                duration: 300
+            }
+            NumberAnimation {
+                target: clickAnimation_Prev.target_name
+                property: "scale"
+                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
+                to: 1
+                duration: 300
+            }
+            PropertyAnimation {
+                target: clickAnimation_Prev
+                property: "running"
+                to: false
+                duration: 5
+            }
+        }
         MouseArea {
-            id: media_mouseArea
+            id: media_mouseArea_Prev
             anchors.fill: parent
         }
     }
     Image {
-        id: mediaPlay
+        id: mediaNext
         x: 168
         y: 0
         width: 50
@@ -89,9 +120,33 @@ Item {
 
         source: "image/controller/下一曲_go-end.svg"
         fillMode: Image.PreserveAspectFit
-
+        SequentialAnimation {
+            id: clickAnimation_next
+            property var target_name: mediaNext
+            running: false
+            NumberAnimation {
+                target: clickAnimation_next.target_name
+                property: "scale"
+                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
+                to: 0
+                duration: 300
+            }
+            NumberAnimation {
+                target: clickAnimation_next.target_name
+                property: "scale"
+                easing.bezierCurve: [0.455, 0.03, 0.515, 0.955, 1, 1]
+                to: 1
+                duration: 300
+            }
+            PropertyAnimation {
+                target: clickAnimation_next
+                property: "running"
+                to: false
+                duration: 5
+            }
+        }
         MouseArea {
-            id: mediaPlay_mouseArea
+            id: mediaNext_mouseArea
             anchors.fill: parent
         }
     }
@@ -145,14 +200,6 @@ Item {
             anchors.fill: parent
         }
     }
-    Slider {
-        id: slider
-        x: 285
-        y: 39
-        width: 286
-        height: 22
-        value: 0.5
-    }
 
     Image {
         id: volumenotice
@@ -166,26 +213,46 @@ Item {
             id: volumenotice_mouseArea
             anchors.fill: parent
         }
+        Slider {
+            id: volume_silde
+            y: 39
+            width: 187
+            height: 22
+            from: 0
+            to: 100
+            anchors.left: parent.left
+            anchors.leftMargin: 56
+            value: 50
+        }
     }
 
     Text {
         id: currTime
-        x: 231
-        y: 39
+        x: 224
+        y: 1
         width: 40
-        height: 24
+        height: parent.height
         text: qsTr("0.00")
-        font.pixelSize: 14
-        horizontalAlignment: Text.AlignHCenter
+        fontSizeMode: Text.FixedSize
     }
+    Slider {
+        id: slider
+        x: 269
+
+        width: 300
+        height: 22
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: 0
+        value: 0.5
+
+    }
+
     Text {
         id: latsTime
-        x: 586
-        y: 39
+        x: 587
+        y: 0
         width: 40
-        height: 24
-        text: qsTr("0.00")
-        font.pixelSize: 14
-        horizontalAlignment: Text.AlignHCenter
+        height: parent.height
+        text: bc.latsTimeText
     }
 }

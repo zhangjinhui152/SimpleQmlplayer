@@ -7,7 +7,7 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Qt6 COMPONENTS Gui Qml Quick)
 
-qt_add_executable(MediaApp src/main.cpp src/qtplayer.cpp src/qtplayer.h)
+qt_add_executable(MediaApp src/main.cpp src/qtplayer.cpp src/qtplayer.h res.qrc)
 
 set(qml_res
 
@@ -24,6 +24,7 @@ set(qml_res
     "content/image/controller/展开菜单1_menu-unfold-one.svg"
     "content/image/controller/展开菜单_menu-unfold.svg"
     "content/image/controller/play.svg"
+
 
 
 )

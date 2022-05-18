@@ -6,17 +6,13 @@
 #include <QString>
 #include <QThread>
 #include <memory>
-
+#include "../player/my_player_list.h"
 #include "../player/player.h"
 class qtPlayer : public QObject
 {
-      Q_OBJECT
+    Q_OBJECT
 private:
-      std::shared_ptr<My_Player> player;
-
-
-signals:
-     void resultNotify(void);
+    std::shared_ptr<my_player_list> player;
 
 public:
     qtPlayer();
@@ -25,7 +21,26 @@ public:
     Q_INVOKABLE void play();
     Q_INVOKABLE void pause();
     Q_INVOKABLE void stop();
+    Q_INVOKABLE void next();
+    Q_INVOKABLE void previous();
     Q_INVOKABLE void testfun();
+    Q_INVOKABLE int get_duration();
+
+
+public slots:
+    void setVolumeSlot(int);
+    void setDurationSlot(int);
+
+signals:
+    void resultNotify(void);
+    void changeDuration(int);
+    void changeFile(QString);
+
+    //Notify the player to parse new media
+    void changeMedia();
+    void setVolume(int);
+    void setDuration(int);
+
 
 };
 
