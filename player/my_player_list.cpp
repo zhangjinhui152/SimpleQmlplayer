@@ -1,4 +1,14 @@
 #include "my_player_list.h"
+#include <memory>
+
+void get_media_info1(libvlc_media_t *media, My_Player_List *player)
+{
+    auto info = MediaInfo{libvlc_media_get_meta(media, libvlc_meta_Title),
+                          libvlc_media_get_meta(media, libvlc_meta_Artist),
+                          libvlc_media_get_meta(media, libvlc_meta_Album),
+                          libvlc_media_get_meta(media, libvlc_meta_ArtworkURL)};
+    player->get_song_list()->push_back(info);
+}
 void getMeta_1(libvlc_media_t *media)
 {
     // 读取标题、艺术家、专辑
@@ -31,7 +41,7 @@ static void listHandleParsedEvent(const libvlc_event_t *event, void *userData)
         {
             getMeta_1(media);
 
-            // libvlc_media_release(media);
+            libvlc_media_release(media);
         }
 
         break;
@@ -40,19 +50,40 @@ static void listHandleParsedEvent(const libvlc_event_t *event, void *userData)
         break;
     }
 }
-void my_player_list::openFile(const std::string &file)
+static void listHandleParsedEventForPlayer(const libvlc_event_t *event, void *userData)
 {
+    auto player = static_cast<std::pair<libvlc_media_t *, My_Player_List *> *>(userData);
+    switch (event->type)
+    {
+    case libvlc_MediaParsedChanged:
+    {
+        int state = event->u.media_parsed_changed.new_status;
+        if (libvlc_media_parsed_status_done == state)
+        {
+           get_media_info1(player->first,player->second);
+        }
+        break;
+    }
+    default:
+
+        break;
+    }
+}
+void My_Player_List::openFile(const std::string &file)
+{
+
     auto temp_media = libvlc_media_new_path(this->instance, file.c_str());
     this->eventManager_media = libvlc_media_event_manager(temp_media);
 
-    libvlc_event_attach(this->eventManager_media, libvlc_MediaParsedChanged, listHandleParsedEvent, temp_media);
+    auto data = new std::pair<libvlc_media_t *, My_Player_List *>{temp_media, this};
+    this->crash_pair_data->push_back(data);
+    libvlc_event_attach(this->eventManager_media, libvlc_MediaParsedChanged, listHandleParsedEventForPlayer, data);
     libvlc_media_parse_with_options(temp_media, libvlc_media_parse_local, 1000);
 
     libvlc_media_list_add_media(this->media_List, temp_media);
-
 }
 
-void my_player_list::play()
+void My_Player_List::play()
 {
     auto status = libvlc_media_list_player_get_state(this->player_list);
     if (status == libvlc_state_t::libvlc_Paused)
@@ -65,27 +96,26 @@ void my_player_list::play()
     }
 }
 
-void my_player_list::pause()
+void My_Player_List::pause()
 {
     libvlc_media_list_player_set_pause(this->player_list, true);
 }
 
-void my_player_list::stop()
+void My_Player_List::stop()
 {
     libvlc_media_list_player_stop(this->player_list);
 }
 
-void my_player_list::setVolume(int vol)
+void My_Player_List::setVolume(int vol)
 {
     auto player = libvlc_media_list_player_get_media_player(this->player_list);
     libvlc_audio_set_volume(player, vol);
 }
 
-void my_player_list::seek(int pos)
+void My_Player_List::seek(int pos)
 {
     auto player = libvlc_media_list_player_get_media_player(this->player_list);
     auto media = libvlc_media_player_get_media(player);
-
 
     if (media)
     {
@@ -95,37 +125,37 @@ void my_player_list::seek(int pos)
     }
 }
 
-void my_player_list::next()
+void My_Player_List::next()
 {
-     libvlc_media_list_player_next(this->player_list);
+    libvlc_media_list_player_next(this->player_list);
 }
 
-void my_player_list::previous()
+void My_Player_List::previous()
 {
     libvlc_media_list_player_previous(this->player_list);
 }
 
-int my_player_list::get_duration()
+int My_Player_List::get_duration()
 {
     auto player = libvlc_media_list_player_get_media_player(this->player_list);
     auto media = libvlc_media_player_get_media(player);
     libvlc_time_t duration = libvlc_media_get_duration(media);
     int currentTime = static_cast<int>(duration);
-    std::cout<<currentTime<<std::endl;
+    std::cout << currentTime << std::endl;
     return currentTime;
 }
 
-int my_player_list::get_current_duration()
+int My_Player_List::get_current_duration()
 {
-    
+
     auto player = libvlc_media_list_player_get_media_player(this->player_list);
     libvlc_time_t duration = libvlc_media_player_get_time(player);
     int currentTime = static_cast<int>(duration);
-    std::cout<<"nt my_player_list::get_current_duration()"<<currentTime<<std::endl;
+//    std::cout << "nt My_Player_List::get_current_duration()" << currentTime << std::endl;
     return currentTime;
 }
 
-void my_player_list::attachEvents()
+void My_Player_List::attachEvents()
 {
     std::vector<libvlc_event_e> events;
     events.push_back(libvlc_MediaPlayerOpening);
@@ -147,18 +177,47 @@ void my_player_list::attachEvents()
     // }
 }
 
-my_player_list::my_player_list()
+void My_Player_List::crash()
+{
+    for (auto i : *this->crash_pair_data)
+    {
+        libvlc_media_release(i->first);
+        delete i;
+    }
+    
+    
+}
+
+std::vector<MediaInfo> *My_Player_List::get_song_list()
+{
+    return this->song_list;
+}
+
+libvlc_media_t *My_Player_List::get_tempMedia()
+{
+    return this->tempMedia;
+}
+
+void My_Player_List::play_index_media(int index)
+{
+    libvlc_media_list_player_play_item_at_index(this->player_list, index);
+}
+
+My_Player_List::My_Player_List()
 {
     this->instance = libvlc_new(0, NULL);
     this->player_list = libvlc_media_list_player_new(this->instance);
     this->player = libvlc_media_player_new(this->instance);
     this->media_List = libvlc_media_list_new(this->instance);
 
+    this->crash_pair_data = new std::vector<std::pair<libvlc_media_t *, My_Player_List *> *>();
+    this->song_list = new std::vector<MediaInfo>();
+
     libvlc_media_list_player_set_media_list(this->player_list, this->media_List);
     libvlc_media_list_player_set_media_player(this->player_list, this->player);
 }
 
-my_player_list::~my_player_list()
+My_Player_List::~My_Player_List()
 {
 }
 
@@ -167,7 +226,7 @@ void My_Player_List_handleEvent(const libvlc_event_t *event, void *userData)
 }
 
 template <typename T>
-T my_player_list::verity(T data, const char *p)
+T My_Player_List::verity(T data, const char *p)
 {
     if (data == nullptr)
     {

@@ -2,7 +2,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
-
+import my_player 1.0
 Item {
 //    id:file_buttom
     width: 80
@@ -24,6 +24,7 @@ Item {
             // 获取文件名称
             let fileName = fileSelect.currentFile.toString().substring(
                     fileSelect.currentFolder.toString().length + 1)
+            Player.openfile(fileSelect.currentFolder +"/"+fileName)
             console.log("路径【" + fileSelect.currentFolder + "】")
             console.log("名称【" + fileName + "】")
         }
@@ -38,6 +39,7 @@ Item {
         anchors.fill: parent
         onClicked: {
             fileSelect.open()
+
         }
     }
 

@@ -8,6 +8,14 @@ Item {
         target: Player
         onChangeMedia: baseControllerForm.changeMediaLoad();
     }
+    Connections {
+        target: Player
+        onAppendSong:function(mediaInfo_q){
+
+            console.log(mediaInfo_q);
+        }
+    }
+
 
     width: 900
     height: 500
@@ -33,27 +41,42 @@ Item {
             let sec = Math.floor((time/1000) % 60);
             let min = Math.floor((time/1000/60) << 0)
 
+            if(sec<10){
+                sec="0"+sec
+            }
             let strTime = min+":"+sec
             latsTimeText  = strTime
             slider.from = 0
             slider.to = time/1000
             slider.value = 0;
-            currTime.text = strTime;
-            console.log(strTime)
+
+            if(clickAnimation_media_pause.isPause){
+                clickAnimation_media_pause.img_src="image/controller/暂停_pause.svg"
+                clickAnimation_media_pause.isPause = false;
+                clickAnimation_media_pause.running = true
+            }
+
+
         }
 
         Timer{
             interval: 1000; running: true; repeat: true
                    onTriggered: {
-                       let time = 0;
+                       let time = Player.get_Current_Time();
                        let sec = Math.floor((time/1000) % 60);
                        let min = Math.floor((time/1000/60) << 0)
+
+                       if(sec<10){
+                           sec="0"+sec
+                       }
+                       baseControllerForm.slider.value = time/1000
                        let strTime = min+":"+sec
-                       console.log()
+                       baseControllerForm.currTime.text = strTime;
                    }
         }
 
         volume_silde.onMoved: {
+
             emit:Player.setVolume(volume_silde.value)
 
         }
@@ -63,8 +86,6 @@ Item {
             console.log(seek);
             emit:Player.setDurationSlot(seek);
         }
-
-
         mediaNext_mouseArea.onClicked: {
             clickAnimation_next.running = true;
             Player.next()
@@ -76,6 +97,7 @@ Item {
         }
 
         mediaList_mouseArea.onClicked: {
+            emit :Player.changeMedia()
 
             if(!clickAnimation_mediaList.running){
 

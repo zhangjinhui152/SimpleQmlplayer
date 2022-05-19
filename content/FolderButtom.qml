@@ -3,16 +3,18 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
+import my_player 1.0
 Item {
     width: 80
     height: 30
 
-//    FolderDialog {
-//        id: folderDialog_player
-//        onAccepted: {
-//            console.log(folderDialog_player.selectedFolder)
-//        }
-//    }
+    FolderDialog {
+        id: folderDialog_player
+        onAccepted: {
+            Player.openFileList(folderDialog_player.selectedFolder);
+            console.log(" id: folderDialog_player"+folderDialog_player.selectedFolder)
+        }
+    }
 
     Button {
         id: folderButton_b

@@ -8,16 +8,25 @@
 #include <memory>
 #include "../player/my_player_list.h"
 #include "../player/player.h"
+
+class MediaInfo_Q{
+public:
+    MediaInfo mediaInfo;
+
+};
+
 class qtPlayer : public QObject
 {
     Q_OBJECT
 private:
-    std::shared_ptr<my_player_list> player;
+    friend class std::shared_ptr<My_Player_List>;
+    std::shared_ptr<My_Player_List> player;
 
 public:
     qtPlayer();
 
     Q_INVOKABLE void openfile(QString fileName);
+    Q_INVOKABLE void openFileList(QString filePath);
     Q_INVOKABLE void play();
     Q_INVOKABLE void pause();
     Q_INVOKABLE void stop();
@@ -25,6 +34,9 @@ public:
     Q_INVOKABLE void previous();
     Q_INVOKABLE void testfun();
     Q_INVOKABLE int get_duration();
+    Q_INVOKABLE int get_Current_Time();
+
+
 
 
 public slots:
@@ -36,10 +48,12 @@ signals:
     void changeDuration(int);
     void changeFile(QString);
 
+
     //Notify the player to parse new media
     void changeMedia();
     void setVolume(int);
     void setDuration(int);
+    void appendSong(MediaInfo_Q mediaInfo_q);
 
 
 };

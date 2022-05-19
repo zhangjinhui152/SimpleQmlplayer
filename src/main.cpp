@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 
 
     qmlRegisterSingletonInstance<qtPlayer>("my_player", 1, 0, "Player",player_s.get());
-
+    qmlRegisterType<MediaInfo_Q>("my_player", 1, 0, "MediaInfo");
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
 
