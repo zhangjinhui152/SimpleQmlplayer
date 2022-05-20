@@ -1,4 +1,4 @@
-#include "qtplayer.h"
+﻿#include "qtplayer.h"
 #include <QDebug>
 #include <QFile>
 #include <QDir>
@@ -53,7 +53,8 @@ qtPlayer::qtPlayer()
 void qtPlayer::openfile(QString fileName)
 {
     //替换掉原来的openfile dwadwadawd aw awdawdawdw
-    fileName = fileName.replace("file:///","/");
+    fileName = fileName.replace("file:///","");
+    fileName = fileName.replace("/","\\");
     qDebug()<<" qtPlayer::openfile(QString fileName)"<<fileName;
 
 
@@ -71,7 +72,9 @@ void qtPlayer::openfile(QString fileName)
 
 void qtPlayer::openFileList(QString filePath)
 {
-    filePath = filePath.replace("file:///","/");
+    filePath = filePath.replace("file:///","");
+    qDebug()<<"void qtPlayer::openFileList(QString filePath)"
+              ""<<filePath;
     QDir currentpath = QDir(filePath);
     if(!currentpath.exists())
     {

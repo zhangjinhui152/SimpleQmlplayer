@@ -1,4 +1,4 @@
-
+﻿
 
 /*
 This is a UI file (.ui.qml) that is intended to be edited in Qt Design Studio only.
@@ -38,14 +38,14 @@ Item {
         y: 0
         width: 50
         height: 100
-        source: "image/controller/展开菜单1_menu-unfold-one.svg"
+        source: "image/controller/menu-unfold-one.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
             id: clickAnimation_mediaList
             property var target_name: mediaList
             property bool ifRotation: false
             property int angle: 180
-            property string img_src: "image/controller/上一曲_go-start.svg"
+            property string img_src: "image/controller/go-start.svg"
             running: false
             NumberAnimation {
                 target: clickAnimation_mediaList.target_name
@@ -79,7 +79,7 @@ Item {
         width: 50
         height: 100
 
-        source: "image/controller/上一曲_go-start.svg"
+        source: "image/controller/go-start.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
             id: clickAnimation_Prev
@@ -118,7 +118,7 @@ Item {
         width: 50
         height: 100
 
-        source: "image/controller/下一曲_go-end.svg"
+        source: "image/controller/go-end.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
             id: clickAnimation_next
@@ -207,7 +207,7 @@ Item {
         y: 1
         width: 50
         height: 100
-        source: "image/controller/声音-大_volume-notice.svg"
+        source: "image/controller/volume-notice.svg"
         fillMode: Image.PreserveAspectFit
         MouseArea {
             id: volumenotice_mouseArea

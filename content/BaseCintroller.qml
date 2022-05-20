@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
 import my_player 1.0
@@ -89,7 +89,7 @@ Item {
             slider.value = 0;
 
             if(clickAnimation_media_pause.isPause){
-                clickAnimation_media_pause.img_src="image/controller/暂停_pause.svg"
+                clickAnimation_media_pause.img_src="image/controller/pause.svg"
                 clickAnimation_media_pause.isPause = false;
                 clickAnimation_media_pause.running = true
             }
@@ -199,7 +199,7 @@ Item {
                 if(!clickAnimation_media_pause.running){
 
                     if(clickAnimation_media_pause.isPause){
-                        clickAnimation_media_pause.img_src="image/controller/暂停_pause.svg"
+                        clickAnimation_media_pause.img_src="image/controller/pause.svg"
                         clickAnimation_media_pause.isPause = false;
                         //                    Player.openfile("a4.mp3");
                         Player.play()

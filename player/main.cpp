@@ -1,4 +1,4 @@
-#include "player.h"
+﻿#include "player.h"
 #include "my_player.h"
 #include "my_player_list.h"
 #include <thread>
@@ -33,13 +33,13 @@ void fun(My_Player_List *p)
     printf("pause\n");
     p->setVolume(60);
     p->previous();
-    std::this_thread::sleep_for(std::chrono::seconds(5));
+    std::this_thread::sleep_for(std::chrono::seconds(104));
     p->stop();
 }
 int main(int argc, char *argv[])
 {
     My_Player_List *p = new My_Player_List();
     fun(p);
-
+    std::cout<<"hello";
     return 0;
 }
