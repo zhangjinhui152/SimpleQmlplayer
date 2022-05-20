@@ -19,9 +19,6 @@ ELSE ()
 ENDIF (CMAKE_SYSTEM_NAME MATCHES "Linux")
 
 
-
-
-
 message(STATUS "HOW IS ${VLC_CPP}" )
 message(STATUS "HOW IS ${VLC_H}" )
 message(STATUS "HOW IS ${VLC_L}" )
@@ -30,6 +27,8 @@ message(STATUS "HOW IS ${VLC_L}" )
 #add_executable(my_player main.cpp ${VLC_CPP} ${VLC_H} player.h my_player.h my_player.cpp my_player_list.h my_player_list.cpp)
 add_library(my_player SHARED ${VLC_CPP} ${VLC_H} player.h my_player.h my_player.cpp my_player_list.h my_player_list.cpp)
 #set_target_properties(VLC_LIB PROPERTIES LINKER_LANGUAGE CXX)
-INCLUDE_DIRECTORIES(my_player PUBLIC player/vlcpp/inlcude/vlc)
+#INCLUDE_DIRECTORIES(my_player PUBLIC player/vlcpp/inlcude/vlc)
 
 target_link_libraries(my_player ${VLC_L})
+target_include_directories(my_player PUBLIC ${PROJECT_SOURCE_DIR}/vlcpp/include)
+
