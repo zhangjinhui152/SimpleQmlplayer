@@ -13,7 +13,7 @@ qt6_add_qml_module(content
         Filebuttom.qml
         FolderButtom.qml
         MediaList.qml
-        Songlist.qml
+        Song.qml
 
     RESOURCES
         fonts/fonts.txt

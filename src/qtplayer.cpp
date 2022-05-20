@@ -3,6 +3,7 @@
 #include <QFile>
 #include <QDir>
 #include <utility>
+
 void getMeta_qt(libvlc_media_t *media, My_Player_List *player)
 {
     auto info = MediaInfo{libvlc_media_get_meta(media, libvlc_meta_Title),
@@ -15,7 +16,7 @@ void getMeta_qt(libvlc_media_t *media, My_Player_List *player)
 }
 static void listHandleParsedEventForPlayer_qt(const libvlc_event_t *event, void *userData)
 {
-    auto player = static_cast<std::pair<libvlc_media_t *, My_Player_List *> *>(userData);
+    auto player = static_cast<std::pair<libvlc_media_t *, qtPlayer *> *>(userData);
     switch (event->type)
     {
     case libvlc_MediaParsedChanged:
@@ -23,7 +24,16 @@ static void listHandleParsedEventForPlayer_qt(const libvlc_event_t *event, void 
         int state = event->u.media_parsed_changed.new_status;
         if (libvlc_media_parsed_status_done == state)
         {
-           getMeta_qt(player->first,player->second);
+            getMeta_qt(player->first,player->second->get_player().get());
+            if(player->second->get_fileNum() == 1){
+                emit player->second->parseEnd();
+                delete player;
+            }
+            else{
+
+                int temp = player->second->get_fileNum();
+                player->second->set_fileNum(--temp);
+            }
         }
         break;
     }
@@ -37,6 +47,7 @@ qtPlayer::qtPlayer()
     this->player = std::make_shared<My_Player_List>();
     connect(this,&qtPlayer::setVolume,this,&qtPlayer::setVolumeSlot);
     connect(this,&qtPlayer::setDuration,this,&qtPlayer::setDurationSlot);
+    connect(this,&qtPlayer::parseEnd,this,&qtPlayer::parseEndSlot);
 }
 
 void qtPlayer::openfile(QString fileName)
@@ -48,8 +59,8 @@ void qtPlayer::openfile(QString fileName)
 
     auto temp_media = libvlc_media_new_path(this->player->instance, fileName.toStdString().c_str());
     this->player->eventManager_media = libvlc_media_event_manager(temp_media);
-    auto data = new std::pair<libvlc_media_t *, My_Player_List *>{temp_media, this->player.get()};
-    this->player->crash_pair_data->push_back(data);
+    auto data = new std::pair<libvlc_media_t *, qtPlayer*>{temp_media, this};
+    //    this->player->crash_pair_data->push_back(data);
 
 
     libvlc_event_attach(this->player->eventManager_media, libvlc_MediaParsedChanged, listHandleParsedEventForPlayer_qt, data);
@@ -76,7 +87,7 @@ void qtPlayer::openFileList(QString filePath)
     {
         return;
     }
-
+    this->fileNum = file_count;
     QStringList media_list;
     for(int i=0; i<file_count; i++)
     {
@@ -85,11 +96,11 @@ void qtPlayer::openFileList(QString filePath)
         media_list.append(absolute_file_path);
         this->openfile(absolute_file_path);
     }
-//wait parse
-    for(auto v : *player->get_song_list()){
-        qDebug()<<" for(auto v : *player->get_song_list()){"<<v.title;
-    }
-//    emit this->appendSong(m1);
+    //wait parse
+    //    for(auto v : *player->get_song_list()){
+    //        qDebug()<<" for(auto v : *player->get_song_list()){"<<v.title;
+    //    }
+    //    emit this->appendSong(m1);
 
 }
 
@@ -123,6 +134,12 @@ void qtPlayer::previous()
     emit this->changeMedia();
 }
 
+void qtPlayer::play_index(int index)
+{
+    this->player->play_index_media(index);
+    emit this->changeMedia();
+}
+
 void qtPlayer::testfun()
 {
     emit this->resultNotify();
@@ -148,6 +165,20 @@ void qtPlayer::setVolumeSlot(int num)
 void qtPlayer::setDurationSlot(int seek)
 {
     this->player->seek(seek);
+}
+
+void qtPlayer::parseEndSlot()
+{
+    for(auto v : *player->get_song_list()){
+        QVariantList q;
+        q.append(v.title);
+        q.append(v.artist);
+        q.append(v.album);
+        q.append(v.img);
+        q.append(this->fileCount);
+        ++this->fileCount;
+        emit this->appendSong(q);
+    }
 }
 
 player_worker::player_worker(std::shared_ptr<qtPlayer> p)

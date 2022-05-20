@@ -6,6 +6,8 @@
 #include <QString>
 #include <QThread>
 #include <memory>
+#include <QVariant>
+#include <QVariantList>
 #include "../player/my_player_list.h"
 #include "../player/player.h"
 
@@ -21,7 +23,8 @@ class qtPlayer : public QObject
 private:
     friend class std::shared_ptr<My_Player_List>;
     std::shared_ptr<My_Player_List> player;
-
+    int fileNum = 0;
+    int fileCount=0;
 public:
     qtPlayer();
 
@@ -32,16 +35,25 @@ public:
     Q_INVOKABLE void stop();
     Q_INVOKABLE void next();
     Q_INVOKABLE void previous();
+    Q_INVOKABLE void play_index(int);
     Q_INVOKABLE void testfun();
     Q_INVOKABLE int get_duration();
     Q_INVOKABLE int get_Current_Time();
 
-
-
+    std::shared_ptr<My_Player_List> get_player(){
+        return this->player;
+    };
+    int get_fileNum(){
+        return this->fileNum;
+    }
+    void set_fileNum(int num){
+        this->fileNum = num;
+    }
 
 public slots:
     void setVolumeSlot(int);
     void setDurationSlot(int);
+    void parseEndSlot();
 
 signals:
     void resultNotify(void);
@@ -53,7 +65,8 @@ signals:
     void changeMedia();
     void setVolume(int);
     void setDuration(int);
-    void appendSong(MediaInfo_Q mediaInfo_q);
+    void appendSong(QVariantList value);
+    void parseEnd();
 
 
 };

@@ -15,7 +15,7 @@ Item {
     id: bc
     width: 900
     height: 100
-    property string latsTimeText: "latsTime.text"
+    property string latsTimeText: "0.00"
     property alias volume_silde: volume_silde
     property alias volumenotice: volumenotice
     property alias media_mouseArea_Prev: media_mouseArea_Prev
@@ -232,8 +232,15 @@ Item {
         y: 1
         width: 40
         height: parent.height
+        verticalAlignment: Text.AlignVCenter
         text: qsTr("0.00")
-        fontSizeMode: Text.FixedSize
+        elide: Text.ElideMiddle
+        layer.mipmap: false
+        layer.wrapMode: ShaderEffectSource.ClampToEdge
+        style: Text.Normal
+        textFormat: Text.PlainText
+        font.styleName: "Italic"
+        fontSizeMode: Text.HorizontalFit
     }
     Slider {
         id: slider
@@ -244,7 +251,6 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.verticalCenterOffset: 0
         value: 0.5
-
     }
 
     Text {
@@ -252,6 +258,7 @@ Item {
         x: 587
         y: 0
         width: 40
+        verticalAlignment: Text.AlignVCenter
         height: parent.height
         text: bc.latsTimeText
     }
