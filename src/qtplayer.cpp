@@ -53,8 +53,15 @@ qtPlayer::qtPlayer()
 void qtPlayer::openfile(QString fileName)
 {
     //替换掉原来的openfile dwadwadawd aw awdawdawdw
+#ifdef __linux__
+    fileName = fileName.replace("file:///","/");
+#endif
+#ifdef _WIN32
     fileName = fileName.replace("file:///","");
     fileName = fileName.replace("/","\\");
+#endif
+    //    fileName = fileName.replace("file:///","/");
+    //    fileName = fileName.replace("/","\\");
     qDebug()<<" qtPlayer::openfile(QString fileName)"<<fileName;
 
 
@@ -72,9 +79,15 @@ void qtPlayer::openfile(QString fileName)
 
 void qtPlayer::openFileList(QString filePath)
 {
-    filePath = filePath.replace("file:///","");
+
+#ifdef __linux__
+    filePath = filePath.replace("file:///","/");
+#endif
+#ifdef _WIN32
+    filePath = filePath.replace("file:///","");//windwos not need absolute path
+#endif
     qDebug()<<"void qtPlayer::openFileList(QString filePath)"
-              ""<<filePath;
+                ""<<filePath;
     QDir currentpath = QDir(filePath);
     if(!currentpath.exists())
     {
@@ -126,19 +139,21 @@ void qtPlayer::stop()
 void qtPlayer::next()
 {
     this->player->next();
-
+    this->currentIndex = ++this->currentIndex;
     emit this->changeMedia();
 }
 
 void qtPlayer::previous()
 {
     this->player->previous();
+    this->currentIndex = --this->currentIndex;
         //Notify the player to parse new media
     emit this->changeMedia();
 }
 
 void qtPlayer::play_index(int index)
 {
+    this->currentIndex = index;
     this->player->play_index_media(index);
     emit this->changeMedia();
 }

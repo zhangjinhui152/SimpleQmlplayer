@@ -14,6 +14,7 @@ qt6_add_qml_module(content
         FolderButtom.qml
         MediaList.qml
         Song.qml
+        SwitchPage.qml
 
     RESOURCES
         fonts/fonts.txt

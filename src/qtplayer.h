@@ -25,6 +25,8 @@ private:
     std::shared_ptr<My_Player_List> player;
     int fileNum = 0;
     int fileCount=0;
+
+    int currentIndex = 0;
 public:
     qtPlayer();
 

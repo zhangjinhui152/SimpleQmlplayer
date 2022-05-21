@@ -8,12 +8,15 @@ Item {
 
     Connections {
         target: Player
-        onChangeMedia: baseControllerForm.changeMediaLoad();
+        onChangeMedia: {
+            baseControllerForm.changeMediaLoad();
+            switchPage.changeImage();
+        }
     }
     Connections {
         target: Player
         onAppendSong:function(value){
-            mediaListView.mediaList_listModel.append({songName:value[0],authorText:value[1],albumText:value[2],imgSrc:value[3],itemIndex:value[4]});
+            switchPage.mediaListView.mediaList_listModel.append({songName:value[0],authorText:value[1],albumText:value[2],imgSrc:value[3],itemIndex:value[4]});
             console.log("onAppendSong:function(value){"+value[0]);
             baseControllerForm.isFileExist = true;
 
@@ -53,15 +56,23 @@ Item {
             }
         }
     }
+    SwitchPage{
+        id:switchPage
+        function changeImage(){
+            mediaListView.mediaList_listView.currentIndex = 1;
+           mediaListView.sing_current_img =mediaListView.mediaList_listView.currentItem.img_src
+        }
+    }
+
     width: 900
     height: 400
-    MediaList{
-        id:mediaListView
-        x: 0
-        y: 0
-        width: 305
-        height: 301
-    }
+//    MediaList{
+//        id:switchPage.switchPage.mediaListView
+//        x: 0
+//        y: 0
+//        width: 305
+//        height: 301
+//    }
 
     BaseControllerForm{
         property bool isFileExist: false
@@ -69,6 +80,8 @@ Item {
         id:baseControllerForm
         x: 0
         y: 300
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 0
 
         function changeMediaLoad(){
             let duration = Player.get_duration();
@@ -171,24 +184,26 @@ Item {
         }
 
         mediaList_mouseArea.onClicked: {
-            if(baseControllerForm.isFileExist){
-                if(!clickAnimation_mediaList.running){
+//            if(!baseControllerForm.isFileExist){
 
-                    clickAnimation_mediaList.running = true;
-                    if(!clickAnimation_mediaList.ifRotation){
-                        clickAnimation_mediaList.angle = 180
-                        clickAnimation_mediaList.ifRotation = true
-                    }
-                    else{
-                        clickAnimation_mediaList.angle = 0
-                        clickAnimation_mediaList.ifRotation =false
-                    }
+//            }
+//            else{
+//                dialogFileExist.open();
+//            }
+            if(!clickAnimation_mediaList.running){
+
+                clickAnimation_mediaList.running = true;
+                if(!clickAnimation_mediaList.ifRotation){
+                    clickAnimation_mediaList.angle = 180
+                    clickAnimation_mediaList.ifRotation = true
+                    switchPage.switchIndex = 1
+                }
+                else{
+                    clickAnimation_mediaList.angle = 0
+                    clickAnimation_mediaList.ifRotation =false
+                    switchPage.switchIndex = 0
                 }
             }
-            else{
-                dialogFileExist.open();
-            }
-
 
 
 
@@ -218,10 +233,23 @@ Item {
             }
         }
 
+        mouseArea_addt_Menu.onClicked: {
+            addt_Menu.open()
+        }
+        folderOpen.onTriggered: {
+            folderDialog_player.open()
+            console.log("nihao1")
 
+        }
     }
 
-
+    FolderDialog {
+        id: folderDialog_player
+        onAccepted: {
+            Player.openFileList(folderDialog_player.selectedFolder);
+            console.log(" id: folderDialog_player"+folderDialog_player.selectedFolder)
+        }
+    }
 
 
 }

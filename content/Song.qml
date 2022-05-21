@@ -4,6 +4,7 @@ Item {
     id:my_song
     width: 200
     height: 60
+    signal changeMedia()
     property int index: 0
     property alias img_src: songImg.source
     property alias album_Text: album.text
@@ -15,6 +16,7 @@ Item {
         id:click_song
         onClicked: {
             Player.play_index(my_song.index)
+            changeMedia()
             console.log(my_song.index)
         }
     }
@@ -31,6 +33,8 @@ Item {
             height: 50
             y:5
             source: "file:///home/zjh/.cache/vlc/art/artistalbum/%E5%A4%9A%E7%94%B0%E8%91%B5/Word%20of%20Dawn/art"
+            sourceSize.height: 50
+            sourceSize.width: 50
         }
 
         Column {

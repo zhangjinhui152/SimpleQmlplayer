@@ -15,6 +15,9 @@ Item {
     id: bc
     width: 900
     height: 100
+    property alias folderOpen: folderOpen
+    property alias addt_Menu: addt_Menu
+    property alias mouseArea_addt_Menu: mouseArea_addt_Menu
     property string latsTimeText: "0.00"
     property alias volume_silde: volume_silde
     property alias volumenotice: volumenotice
@@ -224,7 +227,7 @@ Item {
         Slider {
             id: volume_silde
             y: 39
-            width: 187
+            width: 133
             height: 22
             from: 0
             to: 100
@@ -270,11 +273,33 @@ Item {
         height: parent.height
         text: bc.latsTimeText
     }
-}
 
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:1.5}
-}
-##^##*/
+    Image {
+        id: add_music
+        x: 850
+        y: 0
 
+        width: 50
+        height: 100
+        sourceSize.height: 50
+        sourceSize.width: 50
+        source: "image/controller/add-music.svg"
+        fillMode: Image.PreserveAspectFit
+        MouseArea {
+            id: mouseArea_addt_Menu
+            anchors.fill: parent
+        }
+        Menu {
+            focus: true
+            id: addt_Menu
+
+            MenuItem {
+                id: folderOpen
+                text: "folderOpen"
+            }
+            MenuItem {
+                text: "cancle"
+            }
+        }
+    }
+}

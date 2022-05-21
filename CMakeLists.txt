@@ -24,6 +24,7 @@ set(qml_res
     "content/image/controller/menu-unfold-one.svg"
     "content/image/controller/menu-unfold.svg"
     "content/image/controller/play.svg"
+    "content/image/controller/defaultDisk.png"
 
 
 
