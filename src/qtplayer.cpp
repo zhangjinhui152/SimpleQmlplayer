@@ -139,14 +139,20 @@ void qtPlayer::stop()
 void qtPlayer::next()
 {
     this->player->next();
+
+    if(this->currentIndex < this->fileCount-1){
     this->currentIndex = ++this->currentIndex;
+    }
     emit this->changeMedia(this->currentIndex);;
 }
 
 void qtPlayer::previous()
 {
     this->player->previous();
+    if(this->currentIndex > 0){
     this->currentIndex = --this->currentIndex;
+    }
+
         //Notify the player to parse new media
     emit this->changeMedia(this->currentIndex);;
 }

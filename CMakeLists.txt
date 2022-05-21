@@ -5,7 +5,7 @@ project(MediaApp LANGUAGES CXX)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 COMPONENTS Gui Qml Quick)
+find_package(Qt6 COMPONENTS Gui Qml Quick )
 
 
 qt_add_executable(MediaApp src/main.cpp src/qtplayer.cpp src/qtplayer.h res.qrc)
@@ -26,7 +26,7 @@ set(qml_res
     "content/image/controller/menu-unfold.svg"
     "content/image/controller/play.svg"
     "content/image/controller/defaultDisk.png"
-
+    "content/image/controller/bg_test.png"
 
 
 )

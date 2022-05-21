@@ -24,6 +24,7 @@ Item {
 
        MediaList{
            id:mediaListView
+           clip: true
        }
 
         Item {

@@ -44,30 +44,60 @@ Item {
         x: 0
         y: 0
         width: 900
-        height: 350
+        height: 400
         function changeImage(index){
-           mediaListView.mediaList_listView.currentIndex = index;
-           mediaListView.sing_current_img =mediaListView.mediaList_listView.currentItem.img_src
+            mediaListView.mediaList_listView.currentIndex = index;
+            mediaListView.sing_current_img =mediaListView.mediaList_listView.currentItem.img_src
+            mediaListView.sing_current_img_bg=mediaListView.mediaList_listView.currentItem.img_src
         }
     }
 
     width: 900
     height: 400
-//    MediaList{
-//        id:switchPage.switchPage.mediaListView
-//        x: 0
-//        y: 0
-//        width: 305
-//        height: 301
-//    }
+    //    MediaList{
+    //        id:switchPage.switchPage.mediaListView
+    //        x: 0
+    //        y: 0
+    //        width: 305
+    //        height: 301
+    //    }
+    Item {
+        width: parent.width /2
+        height: parent.height /2
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.horizontalCenter: parent.horizontalCenter
+        Dialog {
+            width: parent.width /2
+            height: parent.height /2
+            id: dialogFileExist
+            modal: true
+            title: "ERROR!"
+            standardButtons: Dialog.Ok | Dialog.Cancel
+            onAccepted: console.log("Ok clicked")
+            onRejected: console.log("Cancel clicked")
+            Text {
+                text: qsTr("请选择文件")
+            }
+        }
+    }
+    Rectangle{
+        color: Qt.rgba(255,255,255,0.7)
+        anchors.fill: baseControllerForm
+        x: baseControllerForm.x
+        y: baseControllerForm.y
+        z: 1
 
+    }
     BaseControllerForm{
         property bool isFileExist: false
 
         id:baseControllerForm
         x: 0
-        y: 300
+        y: 347
+        width: 900
+        height: 53
         anchors.bottom: parent.bottom
+        z: 2
         anchors.bottomMargin: 0
 
         function changeMediaLoad(){
@@ -134,7 +164,7 @@ Item {
                     Player.pause()
                     slider.value=slider.to;
                     Player.next()
-//                    console.log("shit!")
+                    //                    console.log("shit!")
                 }
                 else{
                     console.log(seek);
@@ -171,12 +201,12 @@ Item {
         }
 
         mediaList_mouseArea.onClicked: {
-//            if(!baseControllerForm.isFileExist){
+            //            if(!baseControllerForm.isFileExist){
 
-//            }
-//            else{
-//                dialogFileExist.open();
-//            }
+            //            }
+            //            else{
+            //                dialogFileExist.open();
+            //            }
             if(!clickAnimation_mediaList.running){
 
                 clickAnimation_mediaList.running = true;
@@ -243,6 +273,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.75}
+    D{i:0;formeditorZoom:0.66}
 }
 ##^##*/

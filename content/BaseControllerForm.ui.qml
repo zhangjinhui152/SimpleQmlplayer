@@ -35,12 +35,14 @@ Item {
     property alias mediaList_mouseArea: mediaList_mouseArea
     property alias clickAnimation_mediaList: clickAnimation_mediaList
 
+
     Image {
         id: mediaList
         x: 0
-        y: 0
         width: 50
-        height: 100
+        height: parent.height
+        anchors.verticalCenter: parent.verticalCenter
+
         sourceSize.height: 50
         sourceSize.width: 50
         source: "image/controller/menu-unfold-one.svg"
@@ -70,19 +72,17 @@ Item {
         MouseArea {
 
             id: mediaList_mouseArea
-            x: mediaList.x
-            y: mediaList.y
-            width: mediaList.width
-            height: mediaList.height
+            anchors.fill: parent
         }
     }
 
     Image {
         id: mediaPrev
         x: 56
-        y: 0
         width: 50
-        height: 100
+        height: parent.height
+        anchors.verticalCenter: parent.verticalCenter
+
         sourceSize.height: 50
         sourceSize.width: 50
         source: "image/controller/go-start.svg"
@@ -120,9 +120,9 @@ Item {
     Image {
         id: mediaNext
         x: 168
-        y: 0
         width: 50
-        height: 100
+        height: parent.height
+
         sourceSize.height: 50
         sourceSize.width: 50
         source: "image/controller/go-end.svg"
@@ -161,9 +161,10 @@ Item {
     Image {
         id: media_pause
         x: 112
-        y: 0
         width: 50
-        height: 100
+        height: parent.height
+        anchors.verticalCenter: parent.verticalCenter
+
         sourceSize.height: 50
         sourceSize.width: 50
         source: "image/controller/play.svg"
@@ -206,16 +207,21 @@ Item {
 
         MouseArea {
             id: media_pause_mouseArea
-            anchors.fill: parent
+            anchors.left: parent.left
+            anchors.right: parent.right
+            anchors.top: parent.verticalCenter
+            anchors.bottom: parent.bottom
+            anchors.topMargin: -50
         }
     }
 
     Image {
         id: volumenotice
         x: 650
-        y: 1
         width: 50
-        height: 100
+        height: parent.height
+        anchors.verticalCenter: parent.verticalCenter
+
         source: "image/controller/volume-notice.svg"
         sourceSize.height: 50
         sourceSize.width: 50
@@ -226,9 +232,9 @@ Item {
         }
         Slider {
             id: volume_silde
-            y: 39
             width: 133
             height: 22
+            anchors.verticalCenter: parent.verticalCenter
             from: 0
             to: 100
             anchors.left: parent.left
@@ -240,12 +246,12 @@ Item {
     Text {
         id: currTime
         x: 224
-        y: 1
         width: 40
         height: parent.height
         verticalAlignment: Text.AlignVCenter
         text: qsTr("0.00")
         elide: Text.ElideMiddle
+        anchors.verticalCenter: parent.verticalCenter
         layer.mipmap: false
         layer.wrapMode: ShaderEffectSource.ClampToEdge
         style: Text.Normal
@@ -260,6 +266,7 @@ Item {
         width: 300
         height: 22
         anchors.verticalCenter: parent.verticalCenter
+
         anchors.verticalCenterOffset: 0
         value: 0.5
     }
@@ -267,20 +274,21 @@ Item {
     Text {
         id: latsTime
         x: 587
-        y: 0
         width: 40
         verticalAlignment: Text.AlignVCenter
         height: parent.height
         text: bc.latsTimeText
+        anchors.verticalCenter: parent.verticalCenter
     }
 
     Image {
         id: add_music
         x: 850
-        y: 0
 
         width: 50
-        height: 100
+        height: parent.height
+        anchors.verticalCenter: parent.verticalCenter
+
         sourceSize.height: 50
         sourceSize.width: 50
         source: "image/controller/add-music.svg"
@@ -303,3 +311,9 @@ Item {
         }
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:0.66}D{i:2}D{i:7}D{i:13}D{i:19}
+}
+##^##*/
