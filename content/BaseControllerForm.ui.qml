@@ -38,6 +38,8 @@ Item {
         y: 0
         width: 50
         height: 100
+        sourceSize.height: 50
+        sourceSize.width: 50
         source: "image/controller/menu-unfold-one.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
@@ -78,7 +80,8 @@ Item {
         y: 0
         width: 50
         height: 100
-
+        sourceSize.height: 50
+        sourceSize.width: 50
         source: "image/controller/go-start.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
@@ -117,7 +120,8 @@ Item {
         y: 0
         width: 50
         height: 100
-
+        sourceSize.height: 50
+        sourceSize.width: 50
         source: "image/controller/go-end.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
@@ -157,6 +161,8 @@ Item {
         y: 0
         width: 50
         height: 100
+        sourceSize.height: 50
+        sourceSize.width: 50
         source: "image/controller/play.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
@@ -208,6 +214,8 @@ Item {
         width: 50
         height: 100
         source: "image/controller/volume-notice.svg"
+        sourceSize.height: 50
+        sourceSize.width: 50
         fillMode: Image.PreserveAspectFit
         MouseArea {
             id: volumenotice_mouseArea
@@ -263,3 +271,10 @@ Item {
         text: bc.latsTimeText
     }
 }
+
+/*##^##
+Designer {
+    D{i:0;formeditorZoom:1.5}
+}
+##^##*/
+

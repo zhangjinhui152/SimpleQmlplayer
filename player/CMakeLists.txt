@@ -9,7 +9,7 @@ file(GLOB_RECURSE VLC_CPP vlcpp/include/*pp)
 file(GLOB_RECURSE VLC_H  vlcpp/include/vlc/*.h)
 
 IF (CMAKE_SYSTEM_NAME MATCHES "Linux")
-    file(GLOB_RECURSE VLC_L vlcpp/lib/*.so.*)
+    file(GLOB_RECURSE VLC_L vlcpp/lib/*.so*)
     MESSAGE(STATUS "current platform: Linux ")
     ELSEIF (CMAKE_SYSTEM_NAME MATCHES "Windows")
 file(GLOB_RECURSE VLC_L vlcpp/lib/*.dll)
