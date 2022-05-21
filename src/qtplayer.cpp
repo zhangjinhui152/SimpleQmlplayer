@@ -140,7 +140,7 @@ void qtPlayer::next()
 {
     this->player->next();
     this->currentIndex = ++this->currentIndex;
-    emit this->changeMedia();
+    emit this->changeMedia(this->currentIndex);;
 }
 
 void qtPlayer::previous()
@@ -148,14 +148,14 @@ void qtPlayer::previous()
     this->player->previous();
     this->currentIndex = --this->currentIndex;
         //Notify the player to parse new media
-    emit this->changeMedia();
+    emit this->changeMedia(this->currentIndex);;
 }
 
 void qtPlayer::play_index(int index)
 {
     this->currentIndex = index;
     this->player->play_index_media(index);
-    emit this->changeMedia();
+    emit this->changeMedia(index);;
 }
 
 void qtPlayer::testfun()

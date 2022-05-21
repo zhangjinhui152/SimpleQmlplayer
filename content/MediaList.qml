@@ -17,9 +17,11 @@ Item {
         y: 25
         width: parent.width/2
         height: parent.height - 50
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        highlight: Rectangle { color: Qt.rgba(0,0,0,0.2); radius: 5 }
         focus: true
-
+        clip: true
+        highlightMoveDuration:100
+        highlightMoveVelocity:50
         delegate:Song{
             id:my_song_myBeat
             song_text: songName
@@ -31,7 +33,15 @@ Item {
 
         model: ListModel {
             id: song_List_Model
+//            ListElement{
 
+//            }
+//            ListElement{
+
+//            }
+//            ListElement{
+
+//            }
         }
     }
 
@@ -43,12 +53,11 @@ Item {
         height: parent.height - 50
 
         source: "image/controller/defaultDisk.png"
+
     }
 
+
+
 }
 
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:0.75}
-}
-##^##*/
+

@@ -64,7 +64,7 @@ signals:
 
 
     //Notify the player to parse new media
-    void changeMedia();
+    void changeMedia(int index);
     void setVolume(int);
     void setDuration(int);
     void appendSong(QVariantList value);

@@ -8,9 +8,10 @@ Item {
 
     Connections {
         target: Player
-        onChangeMedia: {
+        onChangeMedia: function(index){
             baseControllerForm.changeMediaLoad();
-            switchPage.changeImage();
+            console.log(" onChangeMedia: function(index){",index)
+            switchPage.changeImage(index);
         }
     }
     Connections {
@@ -37,29 +38,15 @@ Item {
         }
     }
 
-    Item {
-        width: parent.width /2
-        height: parent.height /2
-        anchors.verticalCenter: parent.verticalCenter
-        anchors.horizontalCenter: parent.horizontalCenter
-        Dialog {
-            width: parent.width /2
-            height: parent.height /2
-            id: dialogFileExist
-            modal: true
-            title: "ERROR!"
-            standardButtons: Dialog.Ok | Dialog.Cancel
-            onAccepted: console.log("Ok clicked")
-            onRejected: console.log("Cancel clicked")
-            Text {
-                text: qsTr("请选择文件")
-            }
-        }
-    }
+
     SwitchPage{
         id:switchPage
-        function changeImage(){
-            mediaListView.mediaList_listView.currentIndex = 1;
+        x: 0
+        y: 0
+        width: 900
+        height: 350
+        function changeImage(index){
+           mediaListView.mediaList_listView.currentIndex = index;
            mediaListView.sing_current_img =mediaListView.mediaList_listView.currentItem.img_src
         }
     }
