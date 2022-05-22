@@ -1,1 +1,22 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file>content/image/controller/volume-notice.svg</file>
+        <file>content/image/controller/shuffle-one.svg</file>
+        <file>content/image/controller/play.svg</file>
+        <file>content/image/controller/play-once.svg</file>
+        <file>content/image/controller/pause.svg</file>
+        <file>content/image/controller/menu-unfold.svg</file>
+        <file>content/image/controller/menu-unfold-one.svg</file>
+        <file>content/image/controller/menu-fold-one.svg</file>
+        <file>content/image/controller/list-add.svg</file>
+        <file>content/image/controller/hamburger-button.svg</file>
+        <file>content/image/controller/go-start.svg</file>
+        <file>content/image/controller/go-end.svg</file>
+        <file>content/image/controller/defaultDisk.png</file>
+        <file>content/image/controller/bg_test.png</file>
+        <file>content/image/controller/add-music.svg</file>
+        <file>content/image/controller/a.txt</file>
+        <file>content/image/controller/a.sh</file>
+        <file>content/image/controller/1</file>
+    </qresource>
+</RCC>

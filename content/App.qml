@@ -32,6 +32,11 @@ import QtQuick.Window
 //import Media
 
 Window {
+    maximumWidth: 900
+    maximumHeight: 400
+    minimumWidth: 900
+    minimumHeight: 400
+
     width: 900
     height: 400
     visible: true
