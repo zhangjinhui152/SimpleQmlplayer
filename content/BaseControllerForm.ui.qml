@@ -10,6 +10,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.14
 import "Config.js" as Config
+import my_player 1.0
 
 Item {
 

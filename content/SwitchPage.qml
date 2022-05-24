@@ -6,6 +6,8 @@ import QtQuick.Controls 2.15
 Item {
     width: 900
     height: 350
+
+     property alias mediaLycListView: mediaLycListView
     property alias mediaListView: mediaListView
     property alias switchIndex: switchLayout.currentIndex
     SwipeView {
@@ -26,15 +28,12 @@ Item {
             id:mediaListView
             clip: true
         }
-        Item {
-            property string currentSong: ""
-            Label {
-                text: qsTr("Page 2")
-                font.family: "Verdana"
-                anchors.centerIn: parent
-
-            }
+        MediaLyc{
+             id:mediaLycListView
+             clip: true
         }
+
+
 
 
 

@@ -15,7 +15,7 @@ qt6_add_qml_module(content
         MediaList.qml
         Song.qml
         SwitchPage.qml
-
+        MediaLyc.qml
 
     RESOURCES
         fonts/fonts.txt

@@ -33,10 +33,10 @@ Item {
             height: 0.8*parent.height
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
-            source: "   file:///home/zjh/.cache/vlc/art/artistalbum/%E5%A4%9A%E7%94%B0%E8%91%B5/Word%20of%20Dawn/art"
+            source: "file:///home/zjh/.cache/vlc/art/artistalbum/%E5%A4%9A%E7%94%B0%E8%91%B5/Word%20of%20Dawn/art"
             anchors.leftMargin: 5
-            sourceSize.height: 50
-            sourceSize.width: 50
+            sourceSize.height: 250
+            sourceSize.width: 250
         }
 
         Column {
@@ -85,6 +85,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:1.33}D{i:3}D{i:4}
+    D{i:0;formeditorZoom:1.33}
 }
 ##^##*/

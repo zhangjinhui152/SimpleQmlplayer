@@ -6,13 +6,13 @@ import "Config.js" as Config
 Item {
     id: item1
     property string currentLycPath: ""
+
     Connections {
         target: Player
         onChangeMedia: function(index){
             baseControllerForm.changeMediaLoad();
             console.log(" onChangeMedia: function(index){",index)
             switchPage.changeImage(index);
-            Config.controls_size = 50;
         }
     }
     Connections {
@@ -38,6 +38,25 @@ Item {
             baseControllerForm.slider.value = 0;
         }
     }
+    Timer{
+        interval: 1000; running: true; repeat: true
+        onTriggered: {
+            let time = Player.get_Current_Time();
+            let sec = Math.floor((time/1000) % 60);
+            let min = Math.floor((time/1000/60) << 0)
+            if(sec<10){
+                sec="0"+sec
+            }
+            if(min<10){
+                min="0"+min
+            }
+            baseControllerForm.slider.value = time/1000
+            let strTime = min+":"+sec
+
+            baseControllerForm.currTime.text = strTime;
+            switchPage.scrollerLyc(strTime)
+        }
+    }
 
 
     SwitchPage{
@@ -46,21 +65,44 @@ Item {
         y: 0
         width: 900
         height: 400
+        property var lycMap: new Map()
         function changeImage(index){
+
             mediaListView.mediaList_listView.currentIndex = index;
             mediaListView.sing_current_img =mediaListView.mediaList_listView.currentItem.img_src
             mediaListView.sing_current_img_bg=mediaListView.mediaList_listView.currentItem.img_src
+
+            mediaLycListView.listModel_lyc.clear()
+            let arrMap =  ConfigRead.getLycMap(mediaListView.mediaList_listView.currentItem.song_text)
+            let timeArr= arrMap["time"];
+            let a2 = arrMap["lyc"];
+            console.log(timeArr[0]);
+            let count = 0;
+            lycMap = new Map();
+            for(let item of a2) {
+                mediaLycListView.listModel_lyc.append({lyc:item})
+            }
+            for(let item2 of timeArr) {
+                lycMap.set(item2,count)
+                count++;
+            }
+            count = 0;
+        }
+        function scrollerLyc(strTime)
+        {
+//            mediaLycListView.listView_lyc.
+            if(lycMap.get(strTime) !== undefined){
+                  mediaLycListView.listView_lyc.currentIndex = lycMap.get(strTime)
+            }
+
+
         }
     }
+
+
     width: Config.windwosWidth
     height: Config.windwosHeight
-    //    MediaList{
-    //        id:switchPage.switchPage.mediaListView
-    //        x: 0
-    //        y: 0
-    //        width: 305
-    //        height: 301
-    //    }
+    property alias baseControllerForm: baseControllerForm
     Item {
         width: parent.width /2
         height: parent.height /2
@@ -127,21 +169,21 @@ Item {
 
         }
 
-        Timer{
-            interval: 1000; running: true; repeat: true
-            onTriggered: {
-                let time = Player.get_Current_Time();
-                let sec = Math.floor((time/1000) % 60);
-                let min = Math.floor((time/1000/60) << 0)
+        //        Timer{
+        //            interval: 1000; running: true; repeat: true
+        //            onTriggered: {
+        //                let time = Player.get_Current_Time();
+        //                let sec = Math.floor((time/1000) % 60);
+        //                let min = Math.floor((time/1000/60) << 0)
 
-                if(sec<10){
-                    sec="0"+sec
-                }
-                baseControllerForm.slider.value = time/1000
-                let strTime = min+":"+sec
-                baseControllerForm.currTime.text = strTime;
-            }
-        }
+        //                if(sec<10){
+        //                    sec="0"+sec
+        //                }
+        //                baseControllerForm.slider.value = time/1000
+        //                let strTime = min+":"+sec
+        //                baseControllerForm.currTime.text = strTime;
+        //            }
+        //        }
 
         volume_silde.onMoved: {
             if(baseControllerForm.isFileExist){
@@ -275,8 +317,8 @@ Item {
     FolderDialog {
         id: folderDialog_Lyc
         onAccepted: {
-            Player.openFileList(folderDialog_player.selectedFolder);
-            console.log(" id: folderDialog_player"+folderDialog_player.selectedFolder)
+            ConfigRead.setFilePath(folderDialog_Lyc.selectedFolder)
+            console.log(" id: folderDialog_Lyc"+folderDialog_player.selectedFolder)
         }
     }
 

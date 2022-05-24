@@ -1,5 +1,5 @@
 #include "configread.h"
-
+#include <QDir>
 ConfigRead::ConfigRead()
 {
 
@@ -41,25 +41,68 @@ void ConfigRead::setConfig(QJsonObject configItem)
 
 QVariantMap ConfigRead::getLycMap(QString fileNme)
 {
-
-
-
-    QFile lrcFile(fileNme);
+    qDebug()<<"QVariantMap fileNme IS NULL"<<fileNme;
+    QDir currentpath = QDir(filePath);
     QVariantMap lycMap;
-    if (!lrcFile.open(QIODevice::ReadOnly | QIODevice::Text))
-        qDebug()<<"QVariantMap ConfigRead::getLycMap()";
+
+    if(!currentpath.exists())
+    {
         return QVariantMap();
-    auto  res = QString(lrcFile.readAll());
-    QRegularExpression re("\\[.*\\].*");
-    int leftSize = 10;
-    QRegularExpressionMatchIterator match = re.globalMatch(res);
-
-
-    for (const QRegularExpressionMatch &sum : match) {
-        QString unity = sum.captured(0);
-        QString time = unity.sliced(1,8);
-        QString lyc = unity.sliced(leftSize, unity.size()-leftSize);
-        lycMap[time]=lyc;
     }
+    QStringList filters{"*.lrc"};
+    currentpath.setNameFilters(filters);
+    QFileInfoList list = currentpath.entryInfoList();
+
+    foreach(auto lists,list){
+        if(lists.filePath().contains(fileNme,Qt::CaseInsensitive)){
+            qDebug()<<"if(lists.filePath().contains("<<lists;
+            QFile lrcFile(lists.filePath());
+            QStringList timeLsit;
+            QStringList lycLsit;
+
+
+            if (!lrcFile.open(QIODevice::ReadOnly | QIODevice::Text)){
+                qDebug()<<"QVariantMap ConfigRead::getLycMap()";
+                return QVariantMap();
+            }
+
+            auto  res = QString(lrcFile.readAll());
+            QRegularExpression re("\\[.*\\].*");
+            int leftSize = 10;
+            QRegularExpressionMatchIterator match = re.globalMatch(res);
+
+
+            for (const QRegularExpressionMatch &sum : match) {
+                QString unity = sum.captured(0);
+                if(unity.size()>10){
+                    QString time = unity.sliced(1,5);
+                    QString lyc = unity.sliced(leftSize, unity.size()-leftSize);
+                    timeLsit.append(time);
+                    lycLsit.append(lyc);
+                }
+
+
+            }
+            lycMap["time"]=timeLsit;
+            lycMap["lyc"]=lycLsit;
+
+            return lycMap;
+        }
+    }
+    qDebug()<<"QVariantMap ConfigRead::getLycMap(QString fileNme)IS NULL";
     return lycMap;
+}
+
+void ConfigRead::setFilePath(QString filePath)
+{
+    {
+#ifdef __linux__
+        filePath = filePath.replace("file:///","/");
+#endif
+#ifdef _WIN32
+        filePath = filePath.replace("file:///","");//windwos not need absolute path
+#endif
+        this->filePath = filePath;
+        qDebug()<<"void ConfigRead::setFilePath(QString filePath)"<<this->filePath;
+    }
 }
