@@ -141,7 +141,7 @@ int My_Player_List::get_duration()
     auto media = libvlc_media_player_get_media(player);
     libvlc_time_t duration = libvlc_media_get_duration(media);
     int currentTime = static_cast<int>(duration);
-    std::cout << currentTime << std::endl;
+//    std::cout << currentTime << std::endl;
     return currentTime;
 }
 

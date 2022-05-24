@@ -6,6 +6,24 @@ import "Config.js" as Config
 Item {
     id: item1
     property string currentLycPath: ""
+    signal updataMedia();
+
+    onUpdataMedia: function(){
+        let time = Player.get_Current_Time();
+        let sec = Math.floor((time/1000) % 60);
+        let min = Math.floor((time/1000/60) << 0)
+        if(sec<10){
+            sec="0"+sec
+        }
+        if(min<10){
+            min="0"+min
+        }
+        baseControllerForm.slider.value = time/1000
+        let strTime = min+":"+sec
+
+        baseControllerForm.currTime.text = strTime;
+        switchPage.scrollerLyc(strTime)
+    }
 
     Connections {
         target: Player
@@ -41,20 +59,7 @@ Item {
     Timer{
         interval: 1000; running: true; repeat: true
         onTriggered: {
-            let time = Player.get_Current_Time();
-            let sec = Math.floor((time/1000) % 60);
-            let min = Math.floor((time/1000/60) << 0)
-            if(sec<10){
-                sec="0"+sec
-            }
-            if(min<10){
-                min="0"+min
-            }
-            baseControllerForm.slider.value = time/1000
-            let strTime = min+":"+sec
-
-            baseControllerForm.currTime.text = strTime;
-            switchPage.scrollerLyc(strTime)
+            item1.updataMedia()
         }
     }
 
@@ -76,11 +81,10 @@ Item {
             let arrMap =  ConfigRead.getLycMap(mediaListView.mediaList_listView.currentItem.song_text)
             let timeArr= arrMap["time"];
             let a2 = arrMap["lyc"];
-            console.log(timeArr[0]);
             let count = 0;
             lycMap = new Map();
             for(let item of a2) {
-                mediaLycListView.listModel_lyc.append({lyc:item})
+                mediaLycListView.listModel_lyc.append({lyc:item,fontBold:false})
             }
             for(let item2 of timeArr) {
                 lycMap.set(item2,count)
@@ -92,7 +96,9 @@ Item {
         {
 //            mediaLycListView.listView_lyc.
             if(lycMap.get(strTime) !== undefined){
+                  mediaLycListView.listView_lyc.currentItem.font_Bold = false
                   mediaLycListView.listView_lyc.currentIndex = lycMap.get(strTime)
+                 mediaLycListView.listView_lyc.currentItem.font_Bold = true
             }
 
 
@@ -161,29 +167,13 @@ Item {
             slider.value = 0;
 
             if(clickAnimation_media_pause.isPause){
-                clickAnimation_media_pause.img_src="image/controller/pause.svg"
+                clickAnimation_media_pause.img_src="image/controller/24gl-pause.svg"
                 clickAnimation_media_pause.isPause = false;
                 clickAnimation_media_pause.running = true
             }
 
 
         }
-
-        //        Timer{
-        //            interval: 1000; running: true; repeat: true
-        //            onTriggered: {
-        //                let time = Player.get_Current_Time();
-        //                let sec = Math.floor((time/1000) % 60);
-        //                let min = Math.floor((time/1000/60) << 0)
-
-        //                if(sec<10){
-        //                    sec="0"+sec
-        //                }
-        //                baseControllerForm.slider.value = time/1000
-        //                let strTime = min+":"+sec
-        //                baseControllerForm.currTime.text = strTime;
-        //            }
-        //        }
 
         volume_silde.onMoved: {
             if(baseControllerForm.isFileExist){
@@ -209,7 +199,7 @@ Item {
                     //                    console.log("shit!")
                 }
                 else{
-                    console.log(seek);
+//                    console.log(seek);
                     emit:Player.setDurationSlot(seek);
 
                 }
@@ -273,13 +263,13 @@ Item {
                 if(!clickAnimation_media_pause.running){
 
                     if(clickAnimation_media_pause.isPause){
-                        clickAnimation_media_pause.img_src="image/controller/pause.svg"
+                        clickAnimation_media_pause.img_src="image/controller/24gl-pause.svg"
                         clickAnimation_media_pause.isPause = false;
                         //                    Player.openfile("a4.mp3");
                         Player.play()
                     }
                     else{
-                        clickAnimation_media_pause.img_src="image/controller/play.svg"
+                        clickAnimation_media_pause.img_src="image/controller/24gl-play.svg"
                         clickAnimation_media_pause.isPause = true;
                         Player.pause()
 

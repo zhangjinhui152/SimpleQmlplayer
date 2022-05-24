@@ -184,7 +184,7 @@ Item {
         SequentialAnimation {
             id: clickAnimation_media_pause
             property var target_name: media_pause
-            property string img_src: "image/controller/play.svg"
+            property string img_src: "image/controller/24gl-play.svg"
             property bool isPause: true
             running: false
             NumberAnimation {

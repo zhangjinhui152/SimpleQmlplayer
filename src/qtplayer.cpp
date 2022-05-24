@@ -27,7 +27,9 @@ static void listHandleParsedEventForPlayer_qt(const libvlc_event_t *event, void 
             getMeta_qt(player->first,player->second->get_player().get());
             if(player->second->get_fileNum() == 1){
                 emit player->second->parseEnd();
+
                 delete player;
+
             }
             else{
 
@@ -60,8 +62,7 @@ void qtPlayer::openfile(QString fileName)
     fileName = fileName.replace("file:///","");
     fileName = fileName.replace("/","\\");
 #endif
-    //    fileName = fileName.replace("file:///","/");
-    //    fileName = fileName.replace("/","\\");
+
     qDebug()<<" qtPlayer::openfile(QString fileName)"<<fileName;
 
 
@@ -112,11 +113,7 @@ void qtPlayer::openFileList(QString filePath)
         media_list.append(absolute_file_path);
         this->openfile(absolute_file_path);
     }
-    //wait parse
-    //    for(auto v : *player->get_song_list()){
-    //        qDebug()<<" for(auto v : *player->get_song_list()){"<<v.title;
-    //    }
-    //    emit this->appendSong(m1);
+
 
 }
 
@@ -138,23 +135,28 @@ void qtPlayer::stop()
 
 void qtPlayer::next()
 {
-    this->player->next();
+
 
     if(this->currentIndex < this->fileCount-1){
-    this->currentIndex = ++this->currentIndex;
+        this->player->next();
+        this->currentIndex = ++this->currentIndex;
+        emit this->changeMedia(this->currentIndex);
     }
-    emit this->changeMedia(this->currentIndex);;
+
 }
 
 void qtPlayer::previous()
 {
-    this->player->previous();
+
     if(this->currentIndex > 0){
-    this->currentIndex = --this->currentIndex;
+        this->player->previous();
+        this->currentIndex = --this->currentIndex;
+            //Notify the player to parse new media
+        emit this->changeMedia(this->currentIndex);
     }
 
-        //Notify the player to parse new media
-    emit this->changeMedia(this->currentIndex);;
+
+
 }
 
 void qtPlayer::play_index(int index)
@@ -202,7 +204,11 @@ void qtPlayer::parseEndSlot()
         q.append(this->fileCount);
         ++this->fileCount;
         emit this->appendSong(q);
+        qDebug()<<this->fileCount<<"FILE NUM!___";
     }
+    this->player->song_list->clear();
+
+
 }
 
 player_worker::player_worker(std::shared_ptr<qtPlayer> p)

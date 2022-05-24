@@ -14,23 +14,30 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.verticalCenterOffset: 0
+        anchors.verticalCenterOffset: -72
         anchors.leftMargin: 0
         anchors.rightMargin: 0
         highlightMoveDuration:1250
-        preferredHighlightBegin:70
-        preferredHighlightEnd:80
+        preferredHighlightBegin:180
+        preferredHighlightEnd:200
         highlightRangeMode: ListView.StrictlyEnforceRange
-        highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
+        highlight: Rectangle { color: Qt.rgba(255,255,255,0); radius: 5 }
         delegate: Item {
+            id: item1
             width: Config.windwosWidth
+            property alias font_Bold: my_lyc_text.font.bold
             height: 50
             Text {
+                id:my_lyc_text
                 width: parent.width
                 height: 50
                 text: lyc
                 anchors.verticalCenter: parent.verticalCenter
                 horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                lineHeightMode: Text.FixedHeight
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.strikeout: false
                 font.bold: fontBold
                 font.italic: false
                 font.family: "Source Code Pro"
@@ -43,15 +50,15 @@ Item {
             id:listModel_lyc
             ListElement {
                 lyc:"-----Test-----"
-                fontBold:true
+                fontBold:false
             }
             ListElement {
                 lyc:"-----Test-----"
-                fontBold:true
+                fontBold:false
             }
             ListElement {
                 lyc:"-----Test-----"
-                fontBold:true
+                fontBold:false
             }
 
 
