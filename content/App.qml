@@ -29,22 +29,38 @@
 
 import QtQuick
 import QtQuick.Window
-//import Media
-
+import "qrc:/config/content/Config.js" as Config
+import my_player
 Window {
-    maximumWidth: 900
-    maximumHeight: 400
-    minimumWidth: 900
-    minimumHeight: 400
+    maximumWidth: Config.windwosWidth
+    maximumHeight: Config.windwosHeight
+    minimumWidth: Config.windwosWidth
+    minimumHeight: Config.windwosHeight
 
-    width: 900
-    height: 400
+    width: Config.windwosWidth
+    height: Config.windwosHeight
     visible: true
     title: "Media"
-    BaseCintroller{
-        x: 0
-        y: 0
+//    ConfigRead{
+//        id:config
+//    }
 
+    Component.onCompleted:function(){
+        baseCintrollerLoader.sourceComponent = baseCintroller
+    }
+    Loader{
+        id:baseCintrollerLoader
+
+    }
+
+    Component{
+        id:baseCintroller
+        BaseCintroller{
+
+            x: 0
+            y: 0
+
+        }
     }
 
 

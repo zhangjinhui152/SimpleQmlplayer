@@ -2,16 +2,17 @@
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
 import my_player 1.0
+import "Config.js" as Config
 Item {
     id: item1
-
-
+    property string currentLycPath: ""
     Connections {
         target: Player
         onChangeMedia: function(index){
             baseControllerForm.changeMediaLoad();
             console.log(" onChangeMedia: function(index){",index)
             switchPage.changeImage(index);
+            Config.controls_size = 50;
         }
     }
     Connections {
@@ -51,9 +52,8 @@ Item {
             mediaListView.sing_current_img_bg=mediaListView.mediaList_listView.currentItem.img_src
         }
     }
-
-    width: 900
-    height: 400
+    width: Config.windwosWidth
+    height: Config.windwosHeight
     //    MediaList{
     //        id:switchPage.switchPage.mediaListView
     //        x: 0
@@ -93,9 +93,9 @@ Item {
 
         id:baseControllerForm
         x: 0
-        y: 347
+        y: 329
         width: 900
-        height: 53
+        height: 71
         anchors.bottom: parent.bottom
         z: 2
         anchors.bottomMargin: 0
@@ -255,9 +255,14 @@ Item {
         }
         folderOpen.onTriggered: {
             folderDialog_player.open()
-            console.log("nihao1")
+            console.log("  folderOpen.onTriggered: {")
 
         }
+        folderOpenLyc.onTriggered: {
+            folderDialog_Lyc.open()
+            console.log("folderOpenLyc.onTriggered: {")
+        }
+
     }
 
     FolderDialog {
@@ -267,12 +272,16 @@ Item {
             console.log(" id: folderDialog_player"+folderDialog_player.selectedFolder)
         }
     }
+    FolderDialog {
+        id: folderDialog_Lyc
+        onAccepted: {
+            Player.openFileList(folderDialog_player.selectedFolder);
+            console.log(" id: folderDialog_player"+folderDialog_player.selectedFolder)
+        }
+    }
+
 
 
 }
 
-/*##^##
-Designer {
-    D{i:0;formeditorZoom:0.66}
-}
-##^##*/
+

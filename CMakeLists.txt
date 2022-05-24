@@ -5,10 +5,10 @@ project(MediaApp LANGUAGES CXX)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 
-find_package(Qt6 COMPONENTS Gui Qml Quick Qt5Compat)
+find_package(Qt6 COMPONENTS Gui Qml Quick)
 
 
-qt_add_executable(MediaApp src/main.cpp src/qtplayer.cpp src/qtplayer.h res.qrc)
+qt_add_executable(MediaApp src/main.cpp src/qtplayer.cpp src/qtplayer.h res.qrc src/configread.h src/configread.cpp)
 
 
 qt_add_resources(MediaApp "configuration"

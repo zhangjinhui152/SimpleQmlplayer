@@ -9,12 +9,14 @@ Check out https://doc.qt.io/qtcreator/creator-quick-ui-forms.html for details on
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Window 2.14
+import "Config.js" as Config
 
 Item {
 
     id: bc
-    width: 900
+    width: Config.windwosWidth
     height: 100
+    property alias folderOpenLyc: folderOpenLyc
     property alias folderOpen: folderOpen
     property alias addt_Menu: addt_Menu
     property alias mouseArea_addt_Menu: mouseArea_addt_Menu
@@ -35,17 +37,17 @@ Item {
     property alias mediaList_mouseArea: mediaList_mouseArea
     property alias clickAnimation_mediaList: clickAnimation_mediaList
 
-
     Image {
         id: mediaList
-        x: 0
-        width: 50
+        x: 209
+        width: Config.config.controls_size
         height: parent.height
         anchors.verticalCenter: parent.verticalCenter
 
         sourceSize.height: 50
         sourceSize.width: 50
-        source: "image/controller/menu-unfold-one.svg"
+        source: "image/controller/24gl-playlist.svg"
+        anchors.verticalCenterOffset: 0
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
             id: clickAnimation_mediaList
@@ -78,14 +80,15 @@ Item {
 
     Image {
         id: mediaPrev
-        x: 56
-        width: 50
+        x: 352
+        width: Config.config.controls_size
         height: parent.height
         anchors.verticalCenter: parent.verticalCenter
 
         sourceSize.height: 50
         sourceSize.width: 50
-        source: "image/controller/go-start.svg"
+        source: "image/controller/24gl-previous.svg"
+        anchors.verticalCenterOffset: 0
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
             id: clickAnimation_Prev
@@ -119,13 +122,14 @@ Item {
     }
     Image {
         id: mediaNext
-        x: 168
-        width: 50
+        x: 521
+        y: 0
+        width: Config.config.controls_size
         height: parent.height
 
         sourceSize.height: 50
         sourceSize.width: 50
-        source: "image/controller/go-end.svg"
+        source: "image/controller/24gl-next.svg"
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
             id: clickAnimation_next
@@ -155,19 +159,26 @@ Item {
         MouseArea {
             id: mediaNext_mouseArea
             anchors.fill: parent
+            anchors.rightMargin: 0
+            anchors.bottomMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
         }
     }
 
     Image {
         id: media_pause
-        x: 112
-        width: 50
+        width: Config.config.controls_size
         height: parent.height
         anchors.verticalCenter: parent.verticalCenter
 
         sourceSize.height: 50
         sourceSize.width: 50
-        source: "image/controller/play.svg"
+        source: "image/controller/24gl-play.svg"
+        smooth: true
+        scale: 1
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.verticalCenterOffset: 0
         fillMode: Image.PreserveAspectFit
         SequentialAnimation {
             id: clickAnimation_media_pause
@@ -207,22 +218,23 @@ Item {
 
         MouseArea {
             id: media_pause_mouseArea
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.top: parent.verticalCenter
-            anchors.bottom: parent.bottom
-            anchors.topMargin: -50
+            anchors.fill: parent
+            anchors.rightMargin: 0
+            anchors.bottomMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
         }
     }
 
     Image {
         id: volumenotice
-        x: 650
-        width: 50
+        x: 696
+        width: Config.config.controls_size
         height: parent.height
         anchors.verticalCenter: parent.verticalCenter
 
-        source: "image/controller/volume-notice.svg"
+        source: "image/controller/24gl-volumeMiddle.svg"
+        anchors.verticalCenterOffset: 0
         sourceSize.height: 50
         sourceSize.width: 50
         fillMode: Image.PreserveAspectFit
@@ -238,17 +250,30 @@ Item {
             from: 0
             to: 100
             anchors.left: parent.left
-            anchors.leftMargin: 56
+            anchors.verticalCenterOffset: 0
+            anchors.leftMargin: 43
             value: 50
         }
     }
 
     Text {
+        id: text1
+        x: 88
+        width: 7
+        height: 16
+        color: "#1943e7"
+        text: qsTr("/")
+        anchors.verticalCenter: parent.verticalCenter
+        font.pixelSize: 12
+    }
+
+    Text {
         id: currTime
-        x: 224
+        x: 50
         width: 40
         height: parent.height
         verticalAlignment: Text.AlignVCenter
+        anchors.verticalCenterOffset: 0
         text: qsTr("0.00")
         elide: Text.ElideMiddle
         anchors.verticalCenter: parent.verticalCenter
@@ -256,42 +281,47 @@ Item {
         layer.wrapMode: ShaderEffectSource.ClampToEdge
         style: Text.Normal
         textFormat: Text.PlainText
-        font.styleName: "Italic"
+        font.styleName: "Medium"
         fontSizeMode: Text.HorizontalFit
     }
     Slider {
         id: slider
-        x: 269
 
-        width: 300
-        height: 22
-        anchors.verticalCenter: parent.verticalCenter
+        height: 25
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.top: parent.top
+        anchors.rightMargin: 0
+        anchors.leftMargin: 0
+        anchors.topMargin: -10
 
-        anchors.verticalCenterOffset: 0
         value: 0.5
     }
 
     Text {
         id: latsTime
-        x: 587
+        x: 96
         width: 40
         verticalAlignment: Text.AlignVCenter
+        anchors.verticalCenterOffset: 0
         height: parent.height
+        color: "#143cd9"
         text: bc.latsTimeText
         anchors.verticalCenter: parent.verticalCenter
     }
 
     Image {
         id: add_music
-        x: 850
+        x: 273
 
-        width: 50
+        width: Config.config.controls_size
         height: parent.height
         anchors.verticalCenter: parent.verticalCenter
 
         sourceSize.height: 50
         sourceSize.width: 50
-        source: "image/controller/add-music.svg"
+        source: "image/controller/24gl-playlistMusic4.svg"
+        anchors.verticalCenterOffset: 0
         fillMode: Image.PreserveAspectFit
         MouseArea {
             id: mouseArea_addt_Menu
@@ -303,7 +333,11 @@ Item {
 
             MenuItem {
                 id: folderOpen
-                text: "folderOpen"
+                text: "打开文件夹"
+            }
+            MenuItem {
+                id: folderOpenLyc
+                text: "打开歌词文件夹"
             }
             MenuItem {
                 text: "cancle"
@@ -314,6 +348,7 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.66}D{i:2}D{i:7}D{i:13}D{i:19}
+    D{i:0;formeditorZoom:0.9}
 }
 ##^##*/
+

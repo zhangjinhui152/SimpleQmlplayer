@@ -33,7 +33,7 @@
 #include "app_environment.h"
 #include "import_qml_plugins.h"
 #include "src/qtplayer.h"
-
+#include "src/configread.h"
 
 int main(int argc, char *argv[])
 {
@@ -53,10 +53,10 @@ int main(int argc, char *argv[])
     auto player_s = std::make_shared<qtPlayer>();
     Player_Thread_Controller PTC =  Player_Thread_Controller(player_s);
     emit PTC.operate(" emit PTC.operate();");
-
-
+    auto configRead =  std::make_shared<ConfigRead>();;
+    configRead->paserJson();
     qmlRegisterSingletonInstance<qtPlayer>("my_player", 1, 0, "Player",player_s.get());
-    qmlRegisterType<MediaInfo_Q>("my_player", 1, 0, "MediaInfo");
+    qmlRegisterSingletonInstance<ConfigRead>("my_player", 1, 0, "ConfigRead",configRead.get());
     engine.addImportPath(QCoreApplication::applicationDirPath() + "/qml");
     engine.addImportPath(":/");
 

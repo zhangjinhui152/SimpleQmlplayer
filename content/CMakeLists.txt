@@ -16,8 +16,10 @@ qt6_add_qml_module(content
         Song.qml
         SwitchPage.qml
 
+
     RESOURCES
         fonts/fonts.txt
+        Config.js
 
 )
 

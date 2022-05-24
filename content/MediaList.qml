@@ -1,16 +1,17 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import Qt5Compat.GraphicalEffects
+import "Config.js" as Config
+import my_player
 Item {
     id: mediaList
-    width: 900
-    height: 400
+    width: Config.windwosWidth
+    height: Config.windwosHeight
     property alias sing_current_img: sing_current_img.source
     property alias sing_current_img_bg: sing_current_img_bg.source
 
     property alias mediaList_listView: listView
     property alias mediaList_listModel: song_List_Model
-
 
         ListView {
             z: 1
@@ -62,27 +63,48 @@ Item {
 
     }
 
+    Loader{
+        id:loadStyle
+        anchors.fill:sing_current_img_bg
+        sourceComponent: Config.changeBgEffect(ConfigRead.configMap["bg_blur_effect"])
+        width: sing_current_img_bg.width
+        height: sing_current_img_bg.height
+
+
+    }
     Image {
         id: sing_current_img_bg
-        x: 48
-        y: -116
-        width: 852
-        height: 595
-        source: "image/controller/bg_test.png"
-        z: -1
-        fillMode: Image.PreserveAspectFit
+        y: -parent.height/2
 
+        width: parent.width
+        source: "image/controller/bg_test.png"
+        fillMode: Image.PreserveAspectCrop
+        z: -1
+        opacity: 1
         clip: true
     }
-    FastBlur {
-           anchors.fill: sing_current_img_bg
-           source: sing_current_img_bg
-           anchors.rightMargin: -185
-           anchors.bottomMargin: -120
-           anchors.leftMargin: -230
-           anchors.topMargin: -149
-           radius:64
-     }
+
+
+    Component{
+        id:blurImage
+        FastBlur {
+               anchors.fill: sing_current_img_bg
+               source: sing_current_img_bg
+               radius:ConfigRead.getConfigMap()["bg_blur_num"]
+         }
+
+    }
+    Component{
+        id:transparentImage
+        Rectangle{
+            anchors.fill: sing_current_img_bg
+            color: Qt.rgba(255,255,255, ConfigRead.getConfigMap()["bg_effect_transparent_num"]);
+            z: 1
+        }
+
+    }
+
+
 
 
 }
@@ -91,6 +113,6 @@ Item {
 
 /*##^##
 Designer {
-    D{i:0;formeditorZoom:0.5}
+    D{i:0;formeditorZoom:0.66}
 }
 ##^##*/

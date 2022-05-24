@@ -18,5 +18,15 @@
         <file>content/image/controller/a.txt</file>
         <file>content/image/controller/a.sh</file>
         <file>content/image/controller/1</file>
+        <file>content/image/controller/24gl-play.svg</file>
+        <file>content/image/controller/24gl-volumeMiddle.svg</file>
+        <file>content/image/controller/24gl-previous.svg</file>
+        <file>content/image/controller/24gl-playlistMusic4.svg</file>
+        <file>content/image/controller/24gl-playlist.svg</file>
+        <file>content/image/controller/24gl-pause.svg</file>
+        <file>content/image/controller/24gl-next.svg</file>
+    </qresource>
+    <qresource prefix="/config">
+        <file>content/Config.js</file>
     </qresource>
 </RCC>

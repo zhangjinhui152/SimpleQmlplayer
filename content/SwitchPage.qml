@@ -22,12 +22,12 @@ Item {
         anchors.leftMargin: 0
         currentIndex: 0
 
-       MediaList{
-           id:mediaListView
-           clip: true
-       }
-
+        MediaList{
+            id:mediaListView
+            clip: true
+        }
         Item {
+            property string currentSong: ""
             Label {
                 text: qsTr("Page 2")
                 font.family: "Verdana"
@@ -35,6 +35,9 @@ Item {
 
             }
         }
+
+
+
     }
 
     //    Button {
