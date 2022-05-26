@@ -72,13 +72,38 @@ QVariantMap ConfigRead::getLycMap(QString fileNme)
             QRegularExpressionMatchIterator match = re.globalMatch(res);
 
 
+            QString previousWord;
+            QString previousTime;
             for (const QRegularExpressionMatch &sum : match) {
                 QString unity = sum.captured(0);
+
+
                 if(unity.size()>10){
                     QString time = unity.sliced(1,5);
                     QString lyc = unity.sliced(leftSize, unity.size()-leftSize);
-                    timeLsit.append(time);
-                    lycLsit.append(lyc);
+
+                    //这次和上次相同则合并
+                    //反之只添加前面
+                    if(previousWord.isEmpty()){
+                        previousWord= lyc;
+                        previousTime = time;
+                        continue;
+                    }
+                    if(time == previousTime){
+                        previousWord.append("\r\n");
+                        previousWord.append(lyc);
+                        timeLsit.append(time);
+                        lycLsit.append(previousWord);
+                        previousTime.clear();
+                        previousWord.clear();
+                    }
+                    else{
+                        timeLsit.append(previousTime);
+                        lycLsit.append(previousWord);
+                        previousTime = time;
+                        previousWord = lyc;
+
+                    }
                 }
 
 

@@ -27,7 +27,7 @@ static void listHandleParsedEventForPlayer_qt(const libvlc_event_t *event, void 
             getMeta_qt(player->first,player->second->get_player().get());
             if(player->second->get_fileNum() == 1){
                 emit player->second->parseEnd();
-
+                libvlc_media_release(player->first);
                 delete player;
 
             }

@@ -26,16 +26,18 @@ Item {
             id: item1
             width: Config.windwosWidth
             property alias font_Bold: my_lyc_text.font.bold
-            height: 50
+            height: 70
             Text {
                 id:my_lyc_text
                 width: parent.width
-                height: 50
                 text: lyc
+                elide: Text.ElideMiddle
                 anchors.verticalCenter: parent.verticalCenter
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                lineHeightMode: Text.FixedHeight
+                lineHeightMode: Text.ProportionalHeight
+                wrapMode: Text.Wrap
+                fontSizeMode: Text.HorizontalFit
                 anchors.horizontalCenter: parent.horizontalCenter
                 font.strikeout: false
                 font.bold: fontBold
@@ -49,7 +51,7 @@ Item {
         model: ListModel {
             id:listModel_lyc
             ListElement {
-                lyc:"-----Test-----"
+                lyc:"-----Test-\n----"
                 fontBold:false
             }
             ListElement {
@@ -68,6 +70,10 @@ Item {
     }
 
 
+    Label{
+        height: 50
+        text: "dwdddddd\ndd\n\ndd"
+    }
 }
 
 /*##^##
