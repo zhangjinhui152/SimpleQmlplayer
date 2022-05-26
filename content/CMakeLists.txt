@@ -10,12 +10,11 @@ qt6_add_qml_module(content
         Screen01.ui.qml
         BaseCintroller.qml
         BaseControllerForm.ui.qml
-        Filebuttom.qml
-        FolderButtom.qml
         MediaList.qml
         Song.qml
         SwitchPage.qml
         MediaLyc.qml
+        readlyc.mjs
 
     RESOURCES
         fonts/fonts.txt

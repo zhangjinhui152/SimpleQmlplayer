@@ -2,6 +2,7 @@
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
 import my_player 1.0
+import QtQml.WorkerScript
 import "Config.js" as Config
 Item {
     id: item1
@@ -9,20 +10,40 @@ Item {
     signal updataMedia();
 
     onUpdataMedia: function(){
-        let time = Player.get_Current_Time();
-        let sec = Math.floor((time/1000) % 60);
-        let min = Math.floor((time/1000/60) << 0)
-        if(sec<10){
-            sec="0"+sec
-        }
-        if(min<10){
-            min="0"+min
-        }
-        baseControllerForm.slider.value = time/1000
-        let strTime = min+":"+sec
 
-        baseControllerForm.currTime.text = strTime;
-        switchPage.scrollerLyc(strTime)
+       class Work{
+            constructor() {
+               this.name = "name";
+               this.url = "url";
+             }
+            go(){
+                let time = Player.get_Current_Time();
+
+                let sec = Math.floor((time/1000) % 60);
+                let min = Math.floor((time/1000/60) << 0)
+                if(sec<10){
+                    sec="0"+sec
+                }
+                if(min<10){
+                    min="0"+min
+                }
+                baseControllerForm.slider.value = time/1000
+                let strTime = min+":"+sec
+
+                baseControllerForm.currTime.text = strTime;
+                switchPage.scrollerLyc(strTime)
+            }
+        }
+        let work = new Work()
+        work.go()
+        readLyc.sendMessage({"work":work})
+
+
+    }
+    WorkerScript{
+        id:readLyc
+        source: "readlyc.mjs"
+        onMessage: ()=>{}
     }
 
     Connections {
@@ -31,6 +52,7 @@ Item {
             baseControllerForm.changeMediaLoad();
             console.log(" onChangeMedia: function(index){",index)
             switchPage.changeImage(index);
+            meidaTimer.restart()
         }
     }
     Connections {
@@ -57,8 +79,10 @@ Item {
         }
     }
     Timer{
-        interval: 1000; running: true; repeat: true
+        id:meidaTimer
+        interval: 1000; running: false; repeat: true
         onTriggered: {
+
             item1.updataMedia()
         }
     }
@@ -267,11 +291,13 @@ Item {
                         clickAnimation_media_pause.isPause = false;
                         //                    Player.openfile("a4.mp3");
                         Player.play()
+                        meidaTimer.running = true;
                     }
                     else{
                         clickAnimation_media_pause.img_src="image/controller/24gl-play.svg"
                         clickAnimation_media_pause.isPause = true;
                         Player.pause()
+                        meidaTimer.running = false
 
                     }
                     clickAnimation_media_pause.running = true
