@@ -2,48 +2,35 @@
 import QtQuick.Controls 2.15
 import QtQuick.Dialogs
 import my_player 1.0
-import QtQml.WorkerScript
 import "Config.js" as Config
 Item {
+
+    focus: true
+    Keys.enabled: true;
+    Keys.onEscapePressed: Qt.quit();
+    Keys.onPressed: (event)=> {
+            console.log("111")
+
+        }
     id: item1
     property string currentLycPath: ""
     signal updataMedia();
 
     onUpdataMedia: function(){
-
-       class Work{
-            constructor() {
-               this.name = "name";
-               this.url = "url";
-             }
-            go(){
-                let time = Player.get_Current_Time();
-
-                let sec = Math.floor((time/1000) % 60);
-                let min = Math.floor((time/1000/60) << 0)
-                if(sec<10){
-                    sec="0"+sec
-                }
-                if(min<10){
-                    min="0"+min
-                }
-                baseControllerForm.slider.value = time/1000
-                let strTime = min+":"+sec
-
-                baseControllerForm.currTime.text = strTime;
-                switchPage.scrollerLyc(strTime)
-            }
+        let time = Player.get_Current_Time();
+        let sec = Math.floor((time/1000) % 60);
+        let min = Math.floor((time/1000/60) << 0)
+        if(sec<10){
+            sec="0"+sec
         }
-        let work = new Work()
-        work.go()
-        readLyc.sendMessage({"work":work})
+        if(min<10){
+            min="0"+min
+        }
+        baseControllerForm.slider.value = time/1000
+        let strTime = min+":"+sec
 
-
-    }
-    WorkerScript{
-        id:readLyc
-        source: "readlyc.mjs"
-        onMessage: ()=>{}
+        baseControllerForm.currTime.text = strTime;
+        switchPage.scrollerLyc(strTime)
     }
 
     Connections {
@@ -52,7 +39,6 @@ Item {
             baseControllerForm.changeMediaLoad();
             console.log(" onChangeMedia: function(index){",index)
             switchPage.changeImage(index);
-            meidaTimer.restart()
         }
     }
     Connections {
@@ -79,16 +65,15 @@ Item {
         }
     }
     Timer{
-        id:meidaTimer
-        interval: 1000; running: false; repeat: true
+        interval: 1000; running: true; repeat: true
         onTriggered: {
-
             item1.updataMedia()
         }
     }
 
 
     SwitchPage{
+
         id:switchPage
         x: 0
         y: 0
@@ -106,7 +91,13 @@ Item {
             let timeArr= arrMap["time"];
             let a2 = arrMap["lyc"];
             let count = 0;
+            if(Object.keys(arrMap).length === 0){
+                mediaLycListView.listModel_lyc.append({lyc:"Not Fonud The Lyc Sorry.....",fontBold:true})
+                return;
+            }
+
             lycMap = new Map();
+
             for(let item of a2) {
                 mediaLycListView.listModel_lyc.append({lyc:item,fontBold:false})
             }
@@ -118,11 +109,11 @@ Item {
         }
         function scrollerLyc(strTime)
         {
-//            mediaLycListView.listView_lyc.
+            //            mediaLycListView.listView_lyc.
             if(lycMap.get(strTime) !== undefined){
-                  mediaLycListView.listView_lyc.currentItem.font_Bold = false
-                  mediaLycListView.listView_lyc.currentIndex = lycMap.get(strTime)
-                 mediaLycListView.listView_lyc.currentItem.font_Bold = true
+                mediaLycListView.listView_lyc.currentItem.font_Bold = false
+                mediaLycListView.listView_lyc.currentIndex = lycMap.get(strTime)
+                mediaLycListView.listView_lyc.currentItem.font_Bold = true
             }
 
 
@@ -223,7 +214,7 @@ Item {
                     //                    console.log("shit!")
                 }
                 else{
-//                    console.log(seek);
+                    //                    console.log(seek);
                     emit:Player.setDurationSlot(seek);
 
                 }
@@ -291,13 +282,11 @@ Item {
                         clickAnimation_media_pause.isPause = false;
                         //                    Player.openfile("a4.mp3");
                         Player.play()
-                        meidaTimer.running = true;
                     }
                     else{
                         clickAnimation_media_pause.img_src="image/controller/24gl-play.svg"
                         clickAnimation_media_pause.isPause = true;
                         Player.pause()
-                        meidaTimer.running = false
 
                     }
                     clickAnimation_media_pause.running = true
@@ -327,19 +316,29 @@ Item {
         id: folderDialog_player
         onAccepted: {
             Player.openFileList(folderDialog_player.selectedFolder);
+
+            ConfigRead.setFilePath("filePath",folderDialog_player.selectedFolder)
             console.log(" id: folderDialog_player"+folderDialog_player.selectedFolder)
         }
     }
     FolderDialog {
         id: folderDialog_Lyc
         onAccepted: {
-            ConfigRead.setFilePath(folderDialog_Lyc.selectedFolder)
+            ConfigRead.setFilePath("fileLycPath",folderDialog_Lyc.selectedFolder)
             console.log(" id: folderDialog_Lyc"+folderDialog_player.selectedFolder)
         }
     }
 
 
+    Component.onCompleted: function(){
+        console.log("BaseControllerForm --- Component.completed: function(){;")
+        var map = new Map()
+        map = ConfigRead.getConfigMap()
+        Player.openFileList(map["filePath"]);
+        console.log(JSON.stringify(map["filePath"]))
 
+
+    }
 }
 
 

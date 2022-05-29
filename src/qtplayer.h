@@ -83,13 +83,7 @@ public:
     player_worker(std::shared_ptr<qtPlayer> p);
 
 public slots:
-    void doWork(const QString &parameter);
-
-
-
-
-
-
+    void doWork(const QString &parameter) ;
 
 signals:
     void resultReady(const QString &result);

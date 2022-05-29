@@ -26,7 +26,10 @@ public:
     Q_INVOKABLE QVariantMap getConfigMap(){
         return this->configMap;
     }
-    Q_INVOKABLE void  setFilePath(QString filePath);
+    Q_INVOKABLE void  setFilePath(QString fileKeyName,QString value);
+    template<typename T>
+    void set_config_key(QString key,T value);
+
 
 signals:
     void configMapChange();

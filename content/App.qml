@@ -57,6 +57,7 @@ Window {
         id:baseCintroller
         BaseCintroller{
 
+
             x: 0
             y: 0
 
