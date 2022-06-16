@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/">
+        <file>content/image/controller/volume-notice.svg</file>
+        <file>content/image/controller/shuffle-one.svg</file>
+        <file>content/image/controller/play.svg</file>
+        <file>content/image/controller/play-once.svg</file>
+        <file>content/image/controller/pause.svg</file>
+        <file>content/image/controller/menu-unfold.svg</file>
+        <file>content/image/controller/menu-unfold-one.svg</file>
+        <file>content/image/controller/menu-fold-one.svg</file>
+        <file>content/image/controller/list-add.svg</file>
+        <file>content/image/controller/hamburger-button.svg</file>
+        <file>content/image/controller/go-start.svg</file>
+        <file>content/image/controller/go-end.svg</file>
+        <file>content/image/controller/defaultDisk.png</file>
+        <file>content/image/controller/bg_test.png</file>
+        <file>content/image/controller/add-music.svg</file>
+        <file>content/image/controller/a.txt</file>
+        <file>content/image/controller/a.sh</file>
+        <file>content/image/controller/1</file>
+        <file>content/image/controller/24gl-play.svg</file>
+        <file>content/image/controller/24gl-volumeMiddle.svg</file>
+        <file>content/image/controller/24gl-previous.svg</file>
+        <file>content/image/controller/24gl-playlistMusic4.svg</file>
+        <file>content/image/controller/24gl-playlist.svg</file>
+        <file>content/image/controller/24gl-pause.svg</file>
+        <file>content/image/controller/24gl-next.svg</file>
+    </qresource>
+    <qresource prefix="/config">
+        <file>content/Config.js</file>
+    </qresource>
+</RCC>

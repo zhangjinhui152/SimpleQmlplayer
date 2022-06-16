@@ -1,0 +1,47 @@
+#include "player.h"
+#ifndef MY_PLAYER_H
+#define MY_PLAYER_H
+class My_Player : public Base_Player
+{
+private:
+    //初始化构造器
+    libvlc_instance_t *instance{nullptr};
+    //播放器
+    libvlc_media_player_t *player{nullptr};
+    //媒体//音乐文件
+    libvlc_media_t *media{nullptr};
+    //事件管理器
+    libvlc_event_manager_t *eventManager{nullptr};
+    libvlc_event_manager_t *eventManager_media{nullptr};
+
+public:
+    void waitPlaying();
+    template <typename T>
+    T verity(T data, const char *);
+
+    void openFile(const std::string &file) override;
+    void play() override;
+    void pause() override;
+    void stop() override;
+    void setVolume(int vol) override;
+    void seek(int pos) override;
+        void next() override;
+    void previous() override;
+
+    libvlc_media_t *getMedia();
+    libvlc_event_manager_t *getEventManager_media();
+
+
+    void attachEvents();
+
+    My_Player();
+    My_Player(My_Player *player);
+    ~My_Player();
+};
+
+void getMeta(libvlc_media_t *media);
+static void My_Player_handleEvent(const libvlc_event_t *event, void *userData);
+
+
+
+#endif
