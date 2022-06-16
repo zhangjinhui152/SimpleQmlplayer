@@ -30,5 +30,5 @@ add_library(my_player SHARED ${VLC_CPP} ${VLC_H} player.h my_player.h my_player.
 #INCLUDE_DIRECTORIES(my_player PUBLIC player/vlcpp/inlcude/vlc)
 
 target_link_libraries(my_player ${VLC_L})
-target_include_directories(my_player PUBLIC ${PROJECT_SOURCE_DIR}/vlcpp/include)
+target_include_directories(my_player PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/vlcpp/include)
 
