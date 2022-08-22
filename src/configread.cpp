@@ -50,14 +50,22 @@ void ConfigRead::setConfig(QJsonObject configItem)
 
 QVariantMap ConfigRead::getLycMap(QString fileNme)
 {
-    qDebug()<<"QVariantMap fileNme IS NULL"<<fileNme;
+    //传进来文件名
+    qDebug()<<"QVariantMap fileNme IS NULL"<<fileNme<<"\n";
+    qDebug()<<"QVariantMap fileNme IS NULL"<<filePath<<"\n";
+
     QDir currentpath = QDir(filePath);
+    currentpath.setPath(filePath);
     QVariantMap lycMap;
 
+    qDebug()<<"QVariantMap fileNme IS NULL"<<currentpath.filesystemAbsolutePath();
     if(!currentpath.exists())
     {
+        qDebug()<<"NO FILEPATH NULL";
         return QVariantMap();
     }
+
+    qDebug()<<"QVariantMap fileNme IS NULL"<<currentpath.filesystemAbsolutePath();
     QStringList filters{"*.lrc"};
     currentpath.setNameFilters(filters);
     QFileInfoList list = currentpath.entryInfoList();
@@ -71,7 +79,7 @@ QVariantMap ConfigRead::getLycMap(QString fileNme)
 
 
             if (!lrcFile.open(QIODevice::ReadOnly | QIODevice::Text)){
-                qDebug()<<"QVariantMap ConfigRead::getLycMap()";
+                qDebug()<<"QVariantMap ConfigRead::()";
                 return QVariantMap();
             }
 
@@ -123,23 +131,28 @@ QVariantMap ConfigRead::getLycMap(QString fileNme)
             return lycMap;
         }
     }
-    qDebug()<<"QVariantMap ConfigRead::getLycMap(QString fileNme)IS NULL";
+    qDebug()<<"RetuenlycMap";
     return lycMap;
 }
 
 void ConfigRead::setFilePath(QString fileKeyName,QString value)
 {
-    {
+
+
+        this->filePath = fileKeyName;
+        qDebug()<<"void ConfigRead::setFilePath(QString filePath)"<<this->filePath;
+        qDebug()<<"void ConfigRead::setFilePath(QString fileKeyName)"<<fileKeyName;
+        qDebug()<<"void ConfigRead::setFilePath(QString value)"<<value;
+        set_config_key(fileKeyName,value);
+        this->filePath = value;
+        qDebug()<<"void ConfigRead::setFilePath(QString filePath)"<<this->filePath;
 #ifdef __linux__
         filePath = filePath.replace("file:///","/");
 #endif
 #ifdef _WIN32
         filePath = filePath.replace("file:///","");//windwos not need absolute path
 #endif
-        this->filePath = fileKeyName;
-        qDebug()<<"void ConfigRead::setFilePath(QString filePath)"<<this->filePath;
-        set_config_key(fileKeyName,value);
-    }
+
 }
 
 template<typename T>
